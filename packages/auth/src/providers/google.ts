@@ -1,7 +1,7 @@
 import * as v from 'valibot'
 import { createLocalJWKSet, jwtVerify, type JSONWebKeySet } from 'jose'
 import { ProviderClaimsSchema, type ProviderClaims } from '@undeadliner/pya-shared'
-import { InvalidTokenError, UpstreamError } from '../errors.ts'
+import { InvalidTokenError, UpstreamError } from '@undeadliner/pya-shared'
 
 const DEFAULT_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const DEFAULT_JWKS_URL = 'https://www.googleapis.com/oauth2/v3/certs'

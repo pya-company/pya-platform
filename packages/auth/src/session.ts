@@ -7,7 +7,7 @@ import {
   writeSession,
   deleteSession,
 } from './store/session-store.ts'
-import { UnauthorizedError } from './errors.ts'
+import { UnauthorizedError } from '@undeadliner/pya-shared'
 import type { SessionRecord } from '@undeadliner/pya-shared'
 
 const COOKIE_NAME = 'pya_sid'

@@ -14,7 +14,7 @@ import {
   type ProviderClaims,
   type Role,
 } from '@undeadliner/pya-shared'
-import { ForbiddenError, UnauthorizedError, ValidationError, NotFoundError } from '../errors.ts'
+import { ForbiddenError, UnauthorizedError, ValidationError, NotFoundError } from '@undeadliner/pya-shared'
 import {
   regenerateRecoveryCodes,
   redeemRecoveryCode,

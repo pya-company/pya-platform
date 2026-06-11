@@ -85,6 +85,7 @@
       "name": "@undeadliner/pya-shared",
       "version": "0.0.0",
       "dependencies": {
+        "effect": "^3.10.0",
         "valibot": "^1.0.0",
       },
     },

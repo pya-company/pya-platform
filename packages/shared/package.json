@@ -15,6 +15,7 @@
     "test": "echo '@undeadliner/pya-shared has no tests yet'"
   },
   "dependencies": {
+    "effect": "^3.10.0",
     "valibot": "^1.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import { UpstreamError } from '../errors.ts'
+import { UpstreamError } from '@undeadliner/pya-shared'
 
 const TTL_SEC = 10 * 60
 const MAX_ATTEMPTS = 5
