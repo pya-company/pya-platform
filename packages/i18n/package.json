@@ -1,0 +1,14 @@
+{
+  "name": "@pya/i18n",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "i18n dictionary helper — getT, locale routing, missing-key reporting.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/i18n has no tests yet'"
+  }
+}

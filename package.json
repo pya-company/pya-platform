@@ -1,0 +1,25 @@
+{
+  "name": "pya-platform",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pya platform — reusable engine powering PyaEats, PyaServ, and future Pya projects.",
+  "packageManager": "bun@1.2.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "type-check": "bun --filter '*' type-check",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "test": "bun --filter '*' test",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "bun run lint && bun run type-check && changeset publish"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.27.10",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,36 @@
+# build & deps
+dist/
+build/
+node_modules/
+.cache/
+.bun/
+
+# env
+.env
+.env.*
+!.env.example
+
+# typescript build info
+*.tsbuildinfo
+
+# logs / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# test artefacts
+coverage/
+playwright-report/
+test-results/
+
+# Terraform state (state lives in the R2 backend, never on disk)
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/.terraform.lock.hcl

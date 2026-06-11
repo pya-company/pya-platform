@@ -1,0 +1,18 @@
+{
+  "name": "@pya/shared",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Common Valibot schemas, id helpers, money/time primitives — shared by every Pya project.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas/*": "./src/schemas/*.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/shared has no tests yet'"
+  },
+  "dependencies": {
+    "valibot": "^1.0.0"
+  }
+}
