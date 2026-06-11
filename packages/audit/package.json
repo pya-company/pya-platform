@@ -1,0 +1,14 @@
+{
+  "name": "@pya/audit",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Audit logging — emit structured events to the `audit` stream; downstream sinks aggregate by stream tag.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/audit has no tests yet'"
+  }
+}

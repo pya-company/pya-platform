@@ -1,0 +1,17 @@
+{
+  "name": "@pya/email",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Resend wrapper — single sendEmail entry, audit-log on failure, never throws.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/email has no tests yet'"
+  },
+  "peerDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0"
+  }
+}

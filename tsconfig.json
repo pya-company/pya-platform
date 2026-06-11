@@ -4,6 +4,13 @@
   "references": [
     { "path": "./packages/shared" },
     { "path": "./packages/i18n" },
-    { "path": "./packages/ui" }
+    { "path": "./packages/ui" },
+    { "path": "./packages/auth" },
+    { "path": "./packages/email" },
+    { "path": "./packages/audit" },
+    { "path": "./packages/cf" },
+    { "path": "./packages/reviews" },
+    { "path": "./packages/comments" },
+    { "path": "./packages/cms" }
   ]
 }

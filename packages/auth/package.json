@@ -1,0 +1,30 @@
+{
+  "name": "@pya/auth",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Auth engine — passwordless (OTP + magic link), passkey/WebAuthn, OAuth, recovery codes, sessions (KV), CSRF. Hono router factories parameterised over D1/KV bindings.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./routes/passwordless": "./src/routes/passwordless.ts",
+    "./routes/oauth": "./src/routes/oauth.ts",
+    "./routes/dev-bypass": "./src/routes/dev-bypass.ts",
+    "./session": "./src/session.ts",
+    "./migrations/*": "./src/migrations/*"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/auth has no tests yet'"
+  },
+  "dependencies": {
+    "@pya/shared": "workspace:*",
+    "@simplewebauthn/server": "^13.3.0",
+    "effect": "^3.10.0",
+    "hono": "^4.6.0",
+    "jose": "^5.9.0",
+    "valibot": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0"
+  }
+}

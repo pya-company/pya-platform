@@ -1,0 +1,17 @@
+{
+  "name": "@pya/cf",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Cloudflare Workers helpers — D1 migrations runner, KV typed wrappers, R2+KV media fallback.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo '@pya/cf has no tests yet'"
+  },
+  "peerDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0"
+  }
+}
