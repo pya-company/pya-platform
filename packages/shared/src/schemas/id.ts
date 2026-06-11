@@ -4,6 +4,7 @@ export const UuidSchema = v.pipe(
   v.string(),
   v.regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i, 'Invalid UUID'),
 )
+export type Uuid = v.InferOutput<typeof UuidSchema>
 
 /** UUID v7 — time-ordered, sortable, monotonic enough for our load levels. */
 export const uuidV7 = (): string => {

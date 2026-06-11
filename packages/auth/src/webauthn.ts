@@ -52,7 +52,7 @@ export const genRegOptions = async (
   generateRegistrationOptions({
     rpName,
     rpID: rpID(env),
-    userID: new TextEncoder().encode(userId),
+    userID: new TextEncoder().encode(userId) as Uint8Array<ArrayBuffer>,
     userName: userEmail,
     excludeCredentials: existing.map((p) => ({
       id: p.credentialId,
