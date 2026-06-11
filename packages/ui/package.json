@@ -3,17 +3,19 @@
   "version": "0.0.0",
   "private": false,
   "type": "module",
-  "description": "Lit web components + BEM design tokens — the shared Pya look-and-feel.",
+  "description": "Lit web components shared across Pya projects — buttons, badges, cards, filter chips, quantity steppers, plus a11y/state controllers.",
   "exports": {
     ".": "./src/index.ts",
-    "./tokens.css": "./src/tokens.css",
-    "./components/*": "./src/components/*"
+    "./components/*": "./src/components/*",
+    "./controllers/*": "./src/controllers/*",
+    "./helpers/*": "./src/helpers/*"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
     "test": "echo '@pya/ui has no tests yet'"
   },
   "dependencies": {
+    "@pya/tokens": "workspace:*",
     "lit": "^3.2.1"
   }
 }

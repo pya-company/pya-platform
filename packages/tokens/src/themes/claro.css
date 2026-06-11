@@ -1,0 +1,26 @@
+:root,
+[data-theme="claro"] {
+  color-scheme: light;
+
+  --pya-surface-page: #fff7f0;
+  --pya-surface: #ffffff;
+  --pya-surface-2: #fff1e8;
+  --pya-surface-3: #fbe9dc;
+
+  --pya-text: #20140a;
+  /* Bumped from #836f5f → #7a6555 to pass WCAG AA 4.5:1 on --pya-surface-page (#fff7f0).
+     Verified via axe-core (was 4.49:1 → now ≥ 4.7:1). */
+  --pya-text-muted: #7a6555;
+  --pya-text-soft: #a3917f;
+  --pya-text-on-acc: #ffffff;
+
+  --pya-border: #f1e1d3;
+  --pya-border-strong: #e6d2c0;
+
+  --pya-shadow-sm: 0 2px 10px rgba(120, 60, 20, .08);
+  --pya-shadow: 0 8px 28px rgba(120, 60, 20, .10);
+
+  --pya-glass-tint: #ffffff;
+  --pya-glass-bg: rgba(255, 255, 255, 0.85);
+  --pya-glass-border: rgba(255, 255, 255, 0.72);
+}

@@ -1,0 +1,84 @@
+.pya-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--pya-surface);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  box-shadow: var(--pya-shadow-sm);
+  text-decoration: none;
+  color: var(--pya-text);
+  transition: transform var(--pya-motion-fast) var(--pya-ease-standard);
+  /* Per-card VT name (injected via inline style by the renderer in
+     pages/index.astro + pages/stores/index.astro). When the user clicks a
+     card and the destination store page assigns the same name to its hero
+     cover, the browser morphs the rectangle into the cover. The thumb
+     fragment below grows from card-photo proportions to the 240px hero. */
+  /* Locked to the worst-case real card geometry (with 2 minitag pills) so
+     cards without optional pills don't shrink the row when they land. Skeleton
+     mirrors this exactly. 280 was too short — cards with both pills are 310. */
+  min-height: 310px;
+  box-sizing: border-box;
+}
+.pya-card:hover { transform: translateY(-4px); box-shadow: var(--pya-shadow); }
+/* Focus ring inherited from tokens/base.css. */
+
+.pya-card__photo {
+  height: 156px;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+  position: relative;
+  /* Per-card photo VT name injected by the renderer — paired with
+     .store-cover on the detail page (same slug). */
+}
+.pya-card__emoji { line-height: 1; }
+.pya-card__tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  /* Dark translucent pill works over any gradient thumb and keeps AAA
+     contrast — earlier --pya-acc2 yellow on white failed WCAG AA. */
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-size: var(--pya-font-size-xs);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--pya-radius-pill);
+  backdrop-filter: blur(4px);
+}
+
+.pya-card__body { padding: var(--pya-space-3) var(--pya-space-4) var(--pya-space-4); }
+.pya-card__row { display: flex; justify-content: space-between; align-items: center; gap: var(--pya-space-2); }
+/* Explicit line-height = skeleton .pya-store-skel__name height (22px); the
+   browser default of ~1.4 made the real card 5px taller, which caused a CLS
+   spike on the skeleton → real swap. */
+.pya-card__name { font-size: var(--pya-font-size-lg); font-weight: 700; margin: 0; line-height: 22px; }
+.pya-card__rating {
+  background: color-mix(in srgb, var(--pya-acc) 16%, transparent);
+  color: var(--pya-acc);
+  padding: 2px 9px;
+  border-radius: var(--pya-radius-pill);
+  font-weight: 700;
+  font-size: var(--pya-font-size-sm);
+}
+.pya-card__meta { color: var(--pya-text-muted); font-size: var(--pya-font-size-sm); margin: var(--pya-space-2) 0 0; }
+.pya-card__tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: var(--pya-space-3); }
+.pya-minitag {
+  font-size: var(--pya-font-size-xs);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--pya-radius-pill);
+  background: var(--pya-surface-2);
+  color: var(--pya-text-muted);
+}
+
+/* Food gradient thumbs — migrated from mockup. */
+.pya-thumb--burger  { background: linear-gradient(135deg, #ffd28a, #ff8a3d); }
+.pya-thumb--pizza   { background: linear-gradient(135deg, #ffb27a, #ef4f3a); }
+.pya-thumb--sushi   { background: linear-gradient(135deg, #a0e8c4, #16a34a); }
+.pya-thumb--taco    { background: linear-gradient(135deg, #ffe08a, #f59e0b); }
+.pya-thumb--chipa   { background: linear-gradient(135deg, #f7d9a8, #c98a3f); }
+.pya-thumb--asado   { background: linear-gradient(135deg, #ff9a76, #c0392b); }
+.pya-thumb--drink   { background: linear-gradient(135deg, #a5d8ff, #4c7ef3); }
+.pya-thumb--dessert { background: linear-gradient(135deg, #ffc4e0, #e056a0); }

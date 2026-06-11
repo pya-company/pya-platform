@@ -4,6 +4,7 @@
   "references": [
     { "path": "./packages/shared" },
     { "path": "./packages/i18n" },
+    { "path": "./packages/tokens" },
     { "path": "./packages/ui" },
     { "path": "./packages/auth" },
     { "path": "./packages/email" },

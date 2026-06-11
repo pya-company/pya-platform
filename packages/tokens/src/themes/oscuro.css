@@ -1,0 +1,39 @@
+[data-theme="oscuro"] {
+  color-scheme: dark;
+
+  --pya-surface-page: #120e0a;
+  --pya-surface: #1d1711;
+  --pya-surface-2: #261e17;
+  --pya-surface-3: #30261d;
+
+  --pya-text: #fdf6ef;
+  --pya-text-muted: #b7a797;
+  --pya-text-soft: #8a7a6b;
+  --pya-text-on-acc: #ffffff;
+
+  --pya-border: #322a21;
+  --pya-border-strong: #43382c;
+
+  --pya-shadow-sm: 0 2px 12px rgba(0, 0, 0, .35);
+  --pya-shadow: 0 10px 34px rgba(0, 0, 0, .45);
+
+  --pya-glass-tint: #14100c;
+  --pya-glass-bg: rgba(44, 34, 24, 0.75);
+  --pya-glass-border: rgba(255, 255, 255, 0.13);
+
+  --pya-focus-ring-color: #60a0ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="claro"]) {
+    color-scheme: dark;
+
+    --pya-surface-page: #120e0a;
+    --pya-surface: #1d1711;
+    --pya-text: #fdf6ef;
+    --pya-text-muted: #b7a797;
+    --pya-glass-bg: rgba(44, 34, 24, 0.75);
+    --pya-glass-tint: #14100c;
+    --pya-focus-ring-color: #60a0ff;
+  }
+}

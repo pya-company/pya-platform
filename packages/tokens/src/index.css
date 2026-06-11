@@ -1,0 +1,22 @@
+/* PyaEats design tokens — single source of truth.
+   Consumed by Astro (apps/site, apps/admin) and Lit (packages/ui). */
+@import './base.css';
+@import './typography.css';
+@import './motion.css';
+
+/* Palettes — applied via <html data-palette="…">. Mango is the default. */
+@import './palettes/mango.css';
+@import './palettes/tomate.css';
+@import './palettes/lima.css';
+@import './palettes/miel.css';
+@import './palettes/caramelo.css';
+
+/* Themes — applied via <html data-theme="claro|oscuro">. */
+@import './themes/claro.css';
+@import './themes/oscuro.css';
+
+/* Glass surfaces — backdrop-filter + prefers-contrast: more fallbacks. */
+@import './glass.css';
+
+/* Utility/component classes — replaces inline-style sprawl across pages. */
+@import './components.css';

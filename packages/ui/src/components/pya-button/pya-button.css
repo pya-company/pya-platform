@@ -1,0 +1,65 @@
+/* Light-DOM styles for <pya-button>. Imported by sites consuming the component
+   (apps/site, apps/admin) via `import '@pyaeats/ui/components/pya-button/pya-button.css'`. */
+
+.pya-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pya-space-2);
+  min-height: var(--pya-target-min);
+  padding-inline: var(--pya-space-4);
+  padding-block: var(--pya-space-2);
+  border: 2px solid transparent;
+  border-radius: var(--pya-radius-pill);
+  font: inherit;
+  font-weight: 700;
+  font-size: var(--pya-font-size-md);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--pya-motion-fast) var(--pya-ease-standard),
+    transform var(--pya-motion-fast) var(--pya-ease-standard);
+}
+
+/* Focus ring inherited from tokens/base.css via :where(button):focus-visible.
+   No override here — keep the soft halo consistent across the design system. */
+
+.pya-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pya-button--primary {
+  background: linear-gradient(135deg, var(--pya-acc), var(--pya-acc2));
+  color: var(--pya-text-on-acc);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--pya-acc2) 30%, transparent);
+}
+
+.pya-button--primary:hover:not([disabled]) { transform: translateY(-1px); }
+.pya-button--primary:active:not([disabled]) { transform: translateY(0); }
+
+.pya-button--ghost {
+  background: var(--pya-surface-2);
+  color: var(--pya-text);
+  border-color: var(--pya-border);
+}
+
+.pya-button--danger {
+  background: #c0392b;
+  color: #fff;
+}
+
+.pya-button--sm { min-height: var(--pya-target-min); padding-inline: var(--pya-space-3); font-size: var(--pya-font-size-sm); }
+.pya-button--lg { min-height: var(--pya-target-comfortable); padding-inline: var(--pya-space-5); font-size: var(--pya-font-size-lg); }
+
+@media (prefers-contrast: more) {
+  .pya-button {
+    border-width: 3px;
+    border-color: ButtonText;
+  }
+  .pya-button--primary {
+    background: Highlight;
+    color: HighlightText;
+    box-shadow: none;
+  }
+}

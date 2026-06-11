@@ -1,0 +1,30 @@
+:root {
+  --pya-font-primary: 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
+  --pya-font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  --pya-font-size-xs: 12px;
+  --pya-font-size-sm: 14px;
+  --pya-font-size-md: 16px;
+  --pya-font-size-lg: 18px;
+  --pya-font-size-xl: 22px;
+  --pya-font-size-2xl: 28px;
+  --pya-font-size-3xl: 36px;
+
+  --pya-line-height-tight: 1.2;
+  --pya-line-height-normal: 1.5;
+  --pya-line-height-relaxed: 1.7;
+
+  --pya-tracking-tight: -0.02em;
+  --pya-tracking-normal: 0;
+  --pya-tracking-wide: 0.04em;
+}
+
+/* System fallback metric-matched to Inter — minimises CLS during font swap. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+  size-adjust: 107.4%;
+}

@@ -1,0 +1,117 @@
+:root {
+  /* Shape */
+  --pya-radius-sm: 10px;
+  --pya-radius-md: 16px;
+  --pya-radius-lg: 22px;
+  --pya-radius-pill: 999px;
+
+  /* Spacing scale (4px grid) */
+  --pya-space-1: 4px;
+  --pya-space-2: 8px;
+  --pya-space-3: 12px;
+  --pya-space-4: 16px;
+  --pya-space-5: 24px;
+  --pya-space-6: 32px;
+  --pya-space-7: 48px;
+  --pya-space-8: 64px;
+
+  /* Containers */
+  --pya-content-narrow: 720px;
+  --pya-content-wide: 1080px;
+  --pya-content-bleed: 1280px;
+
+  /* Focus ring — keyboard-only, soft glow.
+     AAA: ≥3px effective width at ≥3:1 contrast (WCAG 2.4.11/2.4.13).
+     We render it as a box-shadow halo, NOT outline — outline + offset reads
+     as "dev-tools selected element" and feels aggressive. */
+  --pya-focus-ring-width: 3px;
+  --pya-focus-ring-color: #0057B8;
+  --pya-focus-ring-offset: 0px;
+
+  /* Target sizes — AAA 2.5.5: at least 44×44 CSS px. */
+  --pya-target-min: 44px;
+  --pya-target-comfortable: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--pya-surface-page, #fff7f0);
+  color: var(--pya-text, #20140a);
+  font-family: var(--pya-font-primary, system-ui, sans-serif);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* iOS auto-zooms text-entry inputs when font-size < 16 px — but checkbox /
+   radio / file / range / color have intrinsic sizes that bloat under 16 px.
+   Exclude them. Low specificity (:where) so component CSS overrides. */
+:where(
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="image"]):not([type="reset"]):not([type="submit"]):not([type="button"]),
+  select,
+  textarea
+) { font-size: 16px; }
+
+/* Only true interactive elements get the focus ring — no universal rule.
+   The :where() wrapper keeps specificity at 0 so component CSS can override. */
+:where(a, button, [role="button"], input, select, textarea, summary,
+       [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--pya-focus-ring-width)
+    color-mix(in srgb, var(--pya-focus-ring-color) 88%, transparent);
+  transition: box-shadow var(--pya-motion-fast, 140ms)
+              var(--pya-ease-standard, ease-out);
+}
+
+/* Chromium sometimes flags a clicked link/button as focus-visible after the
+   click resolves. Hard-suppress when the element is being actively pressed,
+   so the ring never lingers from a mouse interaction. */
+:focus:not(:focus-visible) { outline: none; }
+
+/* No mobile tap-flash on interactive surfaces. */
+:where(a, button, [role="button"], summary, label, [tabindex]:not([tabindex="-1"])) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* No accidental text selection on click/double-click for things the user
+   actually presses. Keyboard focus still surfaces via :focus-visible above.
+   Inputs, textareas, paragraphs etc. stay user-selectable by default. */
+:where(button, [role="button"], summary, .pya-link-button) {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Visually hidden but available to screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — first focusable in <body>; visible on focus. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--pya-surface, #fff);
+  color: var(--pya-text, #000);
+  padding: var(--pya-space-2) var(--pya-space-3);
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform var(--pya-motion-fast) var(--pya-ease-standard);
+}
+.skip-link:focus-visible { transform: translateY(0); }

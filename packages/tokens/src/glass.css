@@ -1,0 +1,24 @@
+/* Glass surfaces — backdrop-filter with prefers-contrast: more fallback to
+   solid system colors (restores AAA contrast for users who request it). */
+:root {
+  --pya-glass-blur: blur(20px) saturate(1.4);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :root { --pya-glass-blur: none; }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --pya-glass-bg: Canvas;
+    --pya-glass-tint: Canvas;
+    --pya-glass-blur: none;
+    --pya-glass-border: ButtonText;
+    --pya-text: CanvasText;
+    --pya-text-muted: CanvasText;
+    --pya-acc: Highlight;
+    --pya-acc2: Highlight;
+    --pya-text-on-acc: HighlightText;
+    --pya-focus-ring-color: Highlight;
+  }
+}

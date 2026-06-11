@@ -1,0 +1,22 @@
+:root {
+  --pya-motion-instant: 0.001ms;
+  --pya-motion-fast: 150ms;
+  --pya-motion-normal: 250ms;
+  --pya-motion-slow: 400ms;
+  --pya-motion-page: 300ms;
+
+  --pya-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --pya-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --pya-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* AAA SC 2.3.2 / 2.3.3 — motion collapses but stays non-zero so transitionend
+   listeners still fire. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pya-motion-fast: 0.001ms;
+    --pya-motion-normal: 0.001ms;
+    --pya-motion-slow: 0.001ms;
+    --pya-motion-page: 0.001ms;
+  }
+}

@@ -1,0 +1,22 @@
+.pya-stepper { display: inline-flex; align-items: center; gap: var(--pya-space-2); }
+.pya-stepper__btn {
+  width: var(--pya-target-min);
+  height: var(--pya-target-min);
+  border-radius: var(--pya-radius-pill);
+  background: var(--pya-surface-2);
+  border: 1px solid var(--pya-border);
+  color: var(--pya-text);
+  font-size: var(--pya-font-size-lg);
+  font-weight: 700;
+  cursor: pointer;
+}
+/* Focus ring inherited from tokens/base.css. */
+.pya-stepper__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pya-stepper__btn:active { transform: scale(0.92); }
+.pya-stepper__value {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--pya-font-size-md);
+  font-variant-numeric: tabular-nums;
+}

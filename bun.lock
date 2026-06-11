@@ -88,10 +88,15 @@
         "valibot": "^1.0.0",
       },
     },
+    "packages/tokens": {
+      "name": "@pya/tokens",
+      "version": "0.0.0",
+    },
     "packages/ui": {
       "name": "@pya/ui",
       "version": "0.0.0",
       "dependencies": {
+        "@pya/tokens": "workspace:*",
         "lit": "^3.2.1",
       },
     },
@@ -216,6 +221,8 @@
     "@pya/reviews": ["@pya/reviews@workspace:packages/reviews"],
 
     "@pya/shared": ["@pya/shared@workspace:packages/shared"],
+
+    "@pya/tokens": ["@pya/tokens@workspace:packages/tokens"],
 
     "@pya/ui": ["@pya/ui@workspace:packages/ui"],
 

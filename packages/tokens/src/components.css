@@ -1,0 +1,553 @@
+/* PyaEats design-system component classes.
+   Each class is self-contained — full CSS body, no utility composition.
+   Tokens (--pya-space-*, --pya-radius-*, --pya-text-*) are the only shared layer. */
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LINK / TEXT primitives. */
+.pya-back-link {
+  color: var(--pya-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pya-space-2);
+}
+.pya-back-link:hover { text-decoration: underline; }
+
+.pya-link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: var(--pya-text);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+.pya-icon-button {
+  background: none;
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-pill);
+  padding: 6px 10px;
+  min-height: var(--pya-target-min);
+  min-width: 44px;
+  cursor: pointer;
+  color: var(--pya-text);
+  font: inherit;
+}
+
+.pya-muted {
+  color: var(--pya-text-muted);
+  font-size: var(--pya-font-size-sm);
+}
+
+.pya-text-error { color: #c0392b; }
+:root[data-theme="oscuro"] .pya-text-error { color: #fca5a5; }
+
+.pya-code-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PAGE LAYOUT — containers, sections, page-titles. */
+.pya-container {
+  width: 100%;
+  max-width: var(--pya-content-wide);
+  margin-inline: auto;
+  padding-inline: var(--pya-space-4);
+}
+.pya-container--narrow { max-width: var(--pya-content-narrow); }
+.pya-container--540    { max-width: 540px; }
+
+.pya-section { padding-block: var(--pya-space-5); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARDS — generic surface for list-items / detail panels. */
+.pya-card {
+  display: block;
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  background: var(--pya-surface);
+  color: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.pya-card--dashed { border-style: dashed; }
+.pya-card--empty-state {
+  padding: var(--pya-space-4);
+  text-align: center;
+  color: var(--pya-text-muted);
+  border: 1px dashed var(--pya-border);
+  border-radius: var(--pya-radius-md);
+}
+.pya-card--empty-state p { margin: 0 0 var(--pya-space-3); }
+
+.pya-list-card {
+  display: flex;
+  align-items: center;
+  gap: var(--pya-space-3);
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  background: var(--pya-surface);
+  color: inherit;
+  text-decoration: none;
+  min-height: 76px;
+  box-sizing: border-box;
+}
+.pya-list-card:hover { border-color: var(--pya-acc); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FORMS — fields, labels, inputs, fieldsets, error rows. */
+.pya-field {
+  display: grid;
+  gap: var(--pya-space-2);
+}
+.pya-field__label {
+  font-weight: 600;
+}
+.pya-field__hint {
+  color: var(--pya-text-muted);
+  font-weight: 400;
+  font-size: var(--pya-font-size-sm);
+}
+.pya-field__error {
+  color: #c0392b;
+  min-height: 1.25em;
+  margin: 0;
+  font-size: var(--pya-font-size-sm);
+}
+:root[data-theme="oscuro"] .pya-field__error { color: #fca5a5; }
+
+.pya-input,
+.pya-select,
+.pya-textarea {
+  display: block;
+  width: 100%;
+  padding: var(--pya-space-3);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-sm);
+  background: var(--pya-surface);
+  color: var(--pya-text);
+  font: inherit;
+  box-sizing: border-box;
+  /* Mobile: 16 px font suppresses iOS auto-zoom; 44 px min target. */
+  font-size: 16px;
+  min-height: 44px;
+}
+.pya-input--lg,
+.pya-select--lg { min-height: var(--pya-target-min); }
+.pya-input--otp {
+  font-size: var(--pya-font-size-lg);
+  letter-spacing: 4px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  min-height: var(--pya-target-min);
+}
+.pya-textarea {
+  min-height: 280px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.pya-textarea--inline {
+  min-height: auto;
+  font-family: inherit;
+}
+
+.pya-fieldset {
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  padding: var(--pya-space-4);
+}
+.pya-fieldset__legend {
+  padding: 0 var(--pya-space-2);
+  font-weight: 700;
+}
+
+.pya-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: var(--pya-space-3);
+  padding: var(--pya-space-3);
+  border: 1px dashed var(--pya-border);
+  border-radius: var(--pya-radius-md);
+}
+.pya-checkbox-row__box {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.pya-checkbox-row__title {
+  font-weight: 600;
+}
+.pya-checkbox-row__hint {
+  color: var(--pya-text-muted);
+  font-size: var(--pya-font-size-sm);
+}
+
+/* Form-level layout. */
+.pya-form {
+  display: grid;
+  gap: var(--pya-space-4);
+  max-width: var(--pya-content-narrow);
+}
+.pya-form--560 { max-width: 560px; }
+.pya-form--640 { max-width: 640px; }
+
+.pya-form-grid {
+  display: grid;
+  gap: var(--pya-space-3);
+}
+.pya-form-grid--2-1 { grid-template-columns: 2fr 1fr; }
+.pya-form-grid--1-1 { grid-template-columns: 1fr 1fr; }
+
+.pya-form-actions {
+  display: flex;
+  gap: var(--pya-space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pya-form-actions--centered { justify-content: center; }
+.pya-form-actions__status {
+  color: var(--pya-text-muted);
+  font-size: var(--pya-font-size-sm);
+}
+
+/* Button helpers that don't conflict with @pyaeats/ui buttons. */
+.pya-button--block { width: 100%; }
+.pya-button--centered { text-align: center; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BANNERS — info / warning / error callouts. */
+.pya-banner {
+  margin: var(--pya-space-4) 0 var(--pya-space-5);
+  padding: var(--pya-space-4);
+  border-radius: var(--pya-radius-md);
+  border-left: 4px solid currentColor;
+  background: var(--pya-surface-2);
+  color: var(--pya-text);
+}
+.pya-banner h2 { margin: 0 0 var(--pya-space-2); font-size: var(--pya-font-size-md); }
+.pya-banner p  { margin: 0 0 var(--pya-space-3); }
+.pya-banner ul { margin: 0 0 var(--pya-space-3); padding-left: var(--pya-space-5); }
+.pya-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pya-space-2);
+  padding: var(--pya-space-2) var(--pya-space-3);
+  border-radius: var(--pya-radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+}
+.pya-banner__cta[aria-disabled="true"] {
+  background: var(--pya-text-muted);
+  color: var(--pya-surface);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.pya-banner--warn { background: #fef3c7; color: #5b3a0a; border-left-color: #d97706; }
+.pya-banner--warn .pya-banner__cta { background: #5b3a0a; color: #fff; }
+:root[data-theme="oscuro"] .pya-banner--warn { background: #3d2c0a; color: #fde4a0; border-left-color: #f59e0b; }
+:root[data-theme="oscuro"] .pya-banner--warn .pya-banner__cta { background: #f59e0b; color: #1a1207; }
+
+.pya-banner--info {
+  background: color-mix(in srgb, var(--pya-acc) 6%, transparent);
+  color: var(--pya-text);
+  border-left-color: var(--pya-acc);
+}
+
+.pya-banner--error { background: #fee2e2; color: #7f1d1d; border-left-color: #b91c1c; }
+:root[data-theme="oscuro"] .pya-banner--error { background: #3d0a0a; color: #fecaca; }
+
+/* Soft note (order instructions, side hints). */
+.pya-note {
+  padding: var(--pya-space-2);
+  background: var(--pya-surface-2);
+  border-radius: var(--pya-radius-sm);
+}
+
+/* Blockquote-style response box (reviews / comments). */
+.pya-quote {
+  padding: var(--pya-space-3);
+  border-left: 3px solid var(--pya-acc);
+  background: var(--pya-surface-2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PILLS — bilingual status / tag chips. */
+.pya-pill {
+  display: inline-block;
+  padding: 2px var(--pya-space-2);
+  border-radius: var(--pya-radius-pill);
+  background: var(--pya-surface-2);
+  color: var(--pya-text);
+  font-size: var(--pya-font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.pya-pill--ai     { background: #fef3c7; color: #92400e; }
+.pya-pill--human  { background: #dcfce7; color: #166534; }
+:root[data-theme="oscuro"] .pya-pill--ai    { background: #3d2c0a; color: #fde4a0; }
+:root[data-theme="oscuro"] .pya-pill--human { background: #0a3d22; color: #bbf7d0; }
+
+.pya-pill--locale { margin-right: var(--pya-space-2); }
+
+.pya-status-chip {
+  display: inline-block;
+  padding: var(--pya-space-1) var(--pya-space-3);
+  border-radius: var(--pya-radius-pill);
+  font-size: var(--pya-font-size-sm);
+  font-weight: 600;
+}
+.pya-status-chip--active { background: #dcfce7; color: #166534; }
+.pya-status-chip--paused { background: #fee2e2; color: #991b1b; }
+:root[data-theme="oscuro"] .pya-status-chip--active { background: #0a3d22; color: #bbf7d0; }
+:root[data-theme="oscuro"] .pya-status-chip--paused { background: #3d0a0a; color: #fecaca; }
+
+.pya-rating {
+  color: #f59e0b;
+  font-size: var(--pya-font-size-lg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TABLES — admin simple data tables. */
+.pya-table { width: 100%; border-collapse: collapse; }
+.pya-table thead tr { text-align: left; border-bottom: 1px solid var(--pya-border); }
+.pya-table tbody tr { border-bottom: 1px solid var(--pya-border); }
+.pya-table th,
+.pya-table td { padding: var(--pya-space-2); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SUMMARY (details>summary). */
+.pya-summary { cursor: pointer; font-weight: 600; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SKELETONS — shimmer placeholders that mirror real content geometry. */
+.pya-skel {
+  background: linear-gradient(
+    90deg,
+    var(--pya-surface-2) 0%,
+    color-mix(in srgb, var(--pya-surface-2) 55%, var(--pya-surface) 45%) 50%,
+    var(--pya-surface-2) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--pya-radius-sm);
+  color: transparent;
+  user-select: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pya-skel { animation: pya-skel-shimmer 1.4s linear infinite; }
+}
+@keyframes pya-skel-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+.pya-skel-line {
+  display: block;
+  height: 1em;
+  min-width: 4ch;
+  border-radius: 4px;
+}
+.pya-skel-line--lg { height: 1.25em; }
+.pya-skel-line--sm { height: 0.85em; opacity: 0.7; }
+.pya-skel-pill   { display: inline-block; height: 28px; min-width: 64px; border-radius: var(--pya-radius-pill); }
+.pya-skel-circle { display: inline-block; width: 40px; height: 40px; border-radius: 50%; }
+.pya-skel-thumb  { width: 64px; height: 64px; border-radius: var(--pya-radius-sm); flex: none; }
+.pya-skel--text  { display: inline-block; height: 1em; min-width: 8ch; vertical-align: middle; }
+
+/* Skeleton card silhouette matching real list-card geometry. */
+.pya-skel-card {
+  display: flex;
+  gap: var(--pya-space-3);
+  align-items: center;
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  min-height: 76px;
+  box-sizing: border-box;
+}
+.pya-skel-card__body { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pya-skel-card__row  { display: flex; gap: var(--pya-space-3); align-items: center; }
+
+/* Skeleton silhouette that pixel-matches `<pya-store-card>` geometry.
+   156 px photo strip + 12/16/16 body padding + name row + meta line +
+   two pills, all sized from the same tokens as the real card so the
+   swap is invisible. Used by the customer-site home & stores pages. */
+.pya-store-skel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--pya-surface);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  box-shadow: var(--pya-shadow-sm);
+  height: 100%;
+  /* Matches .pya-card min-height (310 = worst-case real card with both pills). */
+  min-height: 310px;
+  box-sizing: border-box;
+}
+.pya-store-skel__photo { height: 156px; border-radius: 0; flex: none; }
+.pya-store-skel__body {
+  padding: var(--pya-space-3) var(--pya-space-4) var(--pya-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pya-space-2);
+}
+.pya-store-skel__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--pya-space-2);
+}
+/* Name strip: h3 at font-size-lg (18 px) × line-height ~1.2 ≈ 22 px. */
+.pya-store-skel__name {
+  display: inline-block;
+  width: 60%;
+  height: 22px;
+  border-radius: 4px;
+}
+/* Rating pill: 2/9 padding + font-size-sm ≈ 24 px. */
+.pya-store-skel__rating {
+  display: inline-block;
+  width: 52px;
+  height: 24px;
+  border-radius: var(--pya-radius-pill);
+}
+/* Meta line: font-size-sm (14 px) × 1.5 ≈ 21 px; top margin space-2. */
+.pya-store-skel__meta {
+  display: inline-block;
+  width: 78%;
+  height: 21px;
+  border-radius: 4px;
+  margin-top: var(--pya-space-2);
+}
+.pya-store-skel__tags { display: flex; gap: 7px; margin-top: var(--pya-space-3); }
+/* Minitag pill: font-size-xs (12 px) + 4/10 padding ≈ 24 px × ~84 px. */
+.pya-store-skel__pill {
+  display: inline-block;
+  height: 24px;
+  width: 84px;
+  border-radius: var(--pya-radius-pill);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PASSKEY login-state card (shared between site + admin login pages). */
+.pya-passkey-status {
+  max-width: 420px;
+  margin-top: var(--pya-space-5);
+  padding: var(--pya-space-5);
+  text-align: center;
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+}
+.pya-passkey-status__icon { font-size: 36px; margin-bottom: var(--pya-space-3); }
+.pya-passkey-status__msg  { margin: 0 0 var(--pya-space-4); color: var(--pya-text); font-weight: 600; }
+.pya-passkey-status__actions {
+  display: flex;
+  gap: var(--pya-space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pya-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--pya-border);
+  border-top-color: var(--pya-acc);
+  border-radius: 50%;
+  margin: 0 auto var(--pya-space-3);
+  animation: pya-spin 1s linear infinite;
+}
+@keyframes pya-spin { to { transform: rotate(360deg); } }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PROSE — rendered markdown article body. */
+.pya-prose h1 { margin: var(--pya-space-3) 0 var(--pya-space-4); }
+.pya-prose h2 { margin-top: var(--pya-space-5); }
+.pya-prose p  { margin: var(--pya-space-3) 0; line-height: 1.6; }
+.pya-prose a  { color: var(--pya-acc); text-decoration: underline; }
+.pya-prose ul,
+.pya-prose ol { padding-left: var(--pya-space-5); margin: var(--pya-space-3) 0; }
+.pya-prose code {
+  background: var(--pya-surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.92em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TILE GRID — large dashboard navigation cards. */
+.pya-tile-grid {
+  display: grid;
+  gap: var(--pya-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.pya-tile {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pya-space-3);
+  justify-content: flex-start;
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  background: var(--pya-surface);
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  min-height: var(--pya-target-comfortable);
+}
+.pya-tile:hover {
+  border-color: var(--pya-acc);
+  background: var(--pya-surface-2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FEEDBACK CARD — shared by reviews + comments. */
+.pya-feedback-card {
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  background: var(--pya-surface);
+}
+.pya-feedback-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pya-space-3);
+  flex-wrap: wrap;
+}
+.pya-feedback-card__date {
+  margin-left: auto;
+  color: var(--pya-text-muted);
+  font-size: var(--pya-font-size-sm);
+}
+.pya-feedback-card__body { margin: var(--pya-space-3) 0 0; }
+.pya-feedback-card__response { margin-top: var(--pya-space-3); }
+.pya-feedback-card__response p { margin: var(--pya-space-2) 0 0; }
+.pya-feedback-reply {
+  margin-top: var(--pya-space-3);
+  display: flex;
+  gap: var(--pya-space-3);
+  align-items: flex-start;
+}
+.pya-feedback-reply .pya-textarea { flex: 1; }
+
+/* Empty state for feedback lists. */
+.pya-feedback-empty {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pya-space-4);
+  border: 1px solid var(--pya-border);
+  border-radius: var(--pya-radius-md);
+  color: var(--pya-text-muted);
+  text-align: center;
+}
+
+/* Skeleton variant of a feedback card (5-line silhouette). */
+.pya-skel-feedback-card {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--pya-space-2);
+  min-height: 120px;
+  padding: var(--pya-space-4);
+}
