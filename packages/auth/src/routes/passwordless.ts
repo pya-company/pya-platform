@@ -13,7 +13,7 @@ import {
   StartBodySchema,
   type ProviderClaims,
   type Role,
-} from '@pya/shared'
+} from '@undeadliner/pya-shared'
 import { ForbiddenError, UnauthorizedError, ValidationError, NotFoundError } from '../errors.ts'
 import {
   regenerateRecoveryCodes,

@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 import { createLocalJWKSet, jwtVerify, type JSONWebKeySet } from 'jose'
-import { ProviderClaimsSchema, type ProviderClaims } from '@pya/shared'
+import { ProviderClaimsSchema, type ProviderClaims } from '@undeadliner/pya-shared'
 import { InvalidTokenError, UpstreamError } from '../errors.ts'
 
 const DEFAULT_TOKEN_URL = 'https://oauth2.googleapis.com/token'

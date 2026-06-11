@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { setCookie } from 'hono/cookie'
-import { uuidV7 } from '@pya/shared'
+import { uuidV7 } from '@undeadliner/pya-shared'
 import { writeSession, newSessionId } from '../store/session-store.ts'
 import { ForbiddenError } from '../errors.ts'
 

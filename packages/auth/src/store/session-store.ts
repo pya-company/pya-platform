@@ -1,5 +1,5 @@
 import * as v from 'valibot'
-import { SessionRecordSchema, type SessionRecord } from '@pya/shared'
+import { SessionRecordSchema, type SessionRecord } from '@undeadliner/pya-shared'
 
 const SESSION_TTL_SEC = 60 * 60 * 24 * 30
 const SLIDING_LAST_SEEN_MIN_SEC = 60

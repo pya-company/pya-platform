@@ -1,4 +1,4 @@
-import { uuidV7, type ProviderClaims } from '@pya/shared'
+import { uuidV7, type ProviderClaims } from '@undeadliner/pya-shared'
 import { IdentityConflictError } from './errors.ts'
 
 export interface LinkResult {

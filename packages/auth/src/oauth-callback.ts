@@ -7,7 +7,7 @@ import {
   type OAuthProvider,
   type OAuthState,
   type ProviderClaims,
-} from '@pya/shared'
+} from '@undeadliner/pya-shared'
 import { UnauthorizedError } from './errors.ts'
 import { exchangeAndVerifyApple } from './providers/apple.ts'
 import { exchangeAndVerifyFacebook } from './providers/facebook.ts'

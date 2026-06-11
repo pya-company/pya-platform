@@ -1,7 +1,9 @@
 {
-  "name": "@pya/cf",
+  "name": "@undeadliner/pya-cf",
   "version": "0.0.0",
   "private": false,
+  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "Cloudflare Workers helpers — D1 migrations runner, KV typed wrappers, R2+KV media fallback.",
   "exports": {
@@ -9,7 +11,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@pya/cf has no tests yet'"
+    "test": "echo '@undeadliner/pya-cf has no tests yet'"
   },
   "peerDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0"

@@ -1,7 +1,9 @@
 {
-  "name": "@pya/audit",
+  "name": "@undeadliner/pya-audit",
   "version": "0.0.0",
   "private": false,
+  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "Audit logging — emit structured events to the `audit` stream; downstream sinks aggregate by stream tag.",
   "exports": {
@@ -9,6 +11,6 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@pya/audit has no tests yet'"
+    "test": "echo '@undeadliner/pya-audit has no tests yet'"
   }
 }
