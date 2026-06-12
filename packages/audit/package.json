@@ -1,5 +1,5 @@
 {
-  "name": "@pya/audit",
+  "name": "@pya-platform/audit",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {

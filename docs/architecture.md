@@ -8,7 +8,7 @@ Snapshot of the platform + consumers as of 2026-06-12. Three Mermaid diagrams: t
 flowchart LR
   subgraph PL["📦 undeadliner/pya-platform · ENGINE"]
     direction TB
-    PLpkg["12 npm packages<br/>@pya/*"]
+    PLpkg["12 npm packages<br/>@pya-platform/*"]
     PLiac["iac/modules/<br/>pya-cf-project<br/>(Terraform)"]
   end
 

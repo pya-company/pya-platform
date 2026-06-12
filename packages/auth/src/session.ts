@@ -1,5 +1,5 @@
-import { UnauthorizedError } from '@pya/shared'
-import type { SessionRecord } from '@pya/shared'
+import { UnauthorizedError } from '@pya-platform/shared'
+import type { SessionRecord } from '@pya-platform/shared'
 import { type deleteCookie, getCookie, type setCookie } from 'hono/cookie'
 import { createMiddleware } from 'hono/factory'
 import {

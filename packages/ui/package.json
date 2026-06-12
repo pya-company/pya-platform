@@ -1,5 +1,5 @@
 {
-  "name": "@pya/ui",
+  "name": "@pya-platform/ui",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {
@@ -23,7 +23,7 @@
     "test": "echo '@pya/ui has no tests yet'"
   },
   "dependencies": {
-    "@pya/tokens": "workspace:*",
+    "@pya-platform/tokens": "workspace:*",
     "lit": "^3.2.1"
   }
 }

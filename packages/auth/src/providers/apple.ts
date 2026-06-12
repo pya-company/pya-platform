@@ -1,5 +1,5 @@
-import type { ProviderClaims } from '@pya/shared'
-import { ProviderNotEnabledError } from '@pya/shared'
+import type { ProviderClaims } from '@pya-platform/shared'
+import { ProviderNotEnabledError } from '@pya-platform/shared'
 
 export const exchangeAndVerifyApple = async (
   _env: Env,

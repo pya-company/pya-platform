@@ -1,6 +1,6 @@
-# Consuming `@pya/*`
+# Consuming `@pya-platform/*`
 
-Published to **npmjs.org** under the `pya` org. Packages are **public** — no auth needed to install.
+Published to **npmjs.org** under the `pya-platform` org. Packages are **public** — no auth needed to install.
 
 ## In a consumer repo
 
@@ -9,8 +9,8 @@ Published to **npmjs.org** under the `pya` org. Packages are **public** — no a
 ```jsonc
 {
   "dependencies": {
-    "@pya/auth": "^0.1.0",
-    "@pya/shared": "^0.1.0"
+    "@pya-platform/auth": "^0.1.0",
+    "@pya-platform/shared": "^0.1.0"
   }
 }
 ```
@@ -33,10 +33,10 @@ When you're iterating on the platform itself, point the consumer at the sibling 
 // pyaeats-app/package.json
 {
   "dependencies": {
-    "@pya/auth": "^0.1.0"
+    "@pya-platform/auth": "^0.1.0"
   },
   "overrides": {
-    "@pya/auth": "file:../pya-platform/packages/auth"
+    "@pya-platform/auth": "file:../pya-platform/packages/auth"
   }
 }
 ```

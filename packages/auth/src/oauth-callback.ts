@@ -4,8 +4,8 @@ import {
   type OAuthState,
   OAuthStateSchema,
   type ProviderClaims,
-} from '@pya/shared'
-import { UnauthorizedError } from '@pya/shared'
+} from '@pya-platform/shared'
+import { UnauthorizedError } from '@pya-platform/shared'
 import type { Context } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import * as v from 'valibot'

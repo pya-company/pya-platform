@@ -6,8 +6,8 @@ import {
   type Role,
   RoleSchema,
   StartBodySchema,
-} from '@pya/shared'
-import { ForbiddenError, UnauthorizedError, ValidationError } from '@pya/shared'
+} from '@pya-platform/shared'
+import { ForbiddenError, UnauthorizedError, ValidationError } from '@pya-platform/shared'
 import type { AuthenticationResponseJSON, RegistrationResponseJSON } from '@simplewebauthn/server'
 import { Hono } from 'hono'
 import { deleteCookie, setCookie } from 'hono/cookie'

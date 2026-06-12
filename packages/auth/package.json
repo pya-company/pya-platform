@@ -1,5 +1,5 @@
 {
-  "name": "@pya/auth",
+  "name": "@pya-platform/auth",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {
@@ -25,7 +25,7 @@
     "test": "echo '@pya/auth has no tests yet'"
   },
   "dependencies": {
-    "@pya/shared": "workspace:*",
+    "@pya-platform/shared": "workspace:*",
     "@simplewebauthn/server": "^13.3.0",
     "effect": "^3.10.0",
     "hono": "^4.6.0",
