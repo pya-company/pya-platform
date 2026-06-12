@@ -13,8 +13,8 @@ export const uuidV7 = (): string => {
   const tsHex = ts.toString(16).padStart(12, '0')
   const a = tsHex.slice(0, 8)
   const b = tsHex.slice(8, 12)
-  const c = `7${(rand[0]! & 0x0f).toString(16).padStart(1, '0')}${rand[1]!.toString(16).padStart(2, '0')}`
-  const d = `${((rand[2]! & 0x3f) | 0x80).toString(16).padStart(2, '0')}${rand[3]!.toString(16).padStart(2, '0')}`
+  const c = `7${((rand[0] ?? 0) & 0x0f).toString(16).padStart(1, '0')}${(rand[1] ?? 0).toString(16).padStart(2, '0')}`
+  const d = `${(((rand[2] ?? 0) & 0x3f) | 0x80).toString(16).padStart(2, '0')}${(rand[3] ?? 0).toString(16).padStart(2, '0')}`
   const e = Array.from(rand.slice(4, 10), (x) => x.toString(16).padStart(2, '0')).join('')
   return `${a}-${b}-${c}-${d}-${e}`
 }

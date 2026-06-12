@@ -20,7 +20,10 @@
   min-height: 310px;
   box-sizing: border-box;
 }
-.pya-card:hover { transform: translateY(-4px); box-shadow: var(--pya-shadow); }
+.pya-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pya-shadow);
+}
 /* Focus ring inherited from tokens/base.css. */
 
 .pya-card__photo {
@@ -32,7 +35,9 @@
   /* Per-card photo VT name injected by the renderer — paired with
      .store-cover on the detail page (same slug). */
 }
-.pya-card__emoji { line-height: 1; }
+.pya-card__emoji {
+  line-height: 1;
+}
 .pya-card__tag {
   position: absolute;
   top: 12px;
@@ -48,12 +53,24 @@
   backdrop-filter: blur(4px);
 }
 
-.pya-card__body { padding: var(--pya-space-3) var(--pya-space-4) var(--pya-space-4); }
-.pya-card__row { display: flex; justify-content: space-between; align-items: center; gap: var(--pya-space-2); }
+.pya-card__body {
+  padding: var(--pya-space-3) var(--pya-space-4) var(--pya-space-4);
+}
+.pya-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--pya-space-2);
+}
 /* Explicit line-height = skeleton .pya-store-skel__name height (22px); the
    browser default of ~1.4 made the real card 5px taller, which caused a CLS
    spike on the skeleton → real swap. */
-.pya-card__name { font-size: var(--pya-font-size-lg); font-weight: 700; margin: 0; line-height: 22px; }
+.pya-card__name {
+  font-size: var(--pya-font-size-lg);
+  font-weight: 700;
+  margin: 0;
+  line-height: 22px;
+}
 .pya-card__rating {
   background: color-mix(in srgb, var(--pya-acc) 16%, transparent);
   color: var(--pya-acc);
@@ -62,8 +79,17 @@
   font-weight: 700;
   font-size: var(--pya-font-size-sm);
 }
-.pya-card__meta { color: var(--pya-text-muted); font-size: var(--pya-font-size-sm); margin: var(--pya-space-2) 0 0; }
-.pya-card__tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: var(--pya-space-3); }
+.pya-card__meta {
+  color: var(--pya-text-muted);
+  font-size: var(--pya-font-size-sm);
+  margin: var(--pya-space-2) 0 0;
+}
+.pya-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: var(--pya-space-3);
+}
 .pya-minitag {
   font-size: var(--pya-font-size-xs);
   font-weight: 600;
@@ -74,11 +100,27 @@
 }
 
 /* Food gradient thumbs — migrated from mockup. */
-.pya-thumb--burger  { background: linear-gradient(135deg, #ffd28a, #ff8a3d); }
-.pya-thumb--pizza   { background: linear-gradient(135deg, #ffb27a, #ef4f3a); }
-.pya-thumb--sushi   { background: linear-gradient(135deg, #a0e8c4, #16a34a); }
-.pya-thumb--taco    { background: linear-gradient(135deg, #ffe08a, #f59e0b); }
-.pya-thumb--chipa   { background: linear-gradient(135deg, #f7d9a8, #c98a3f); }
-.pya-thumb--asado   { background: linear-gradient(135deg, #ff9a76, #c0392b); }
-.pya-thumb--drink   { background: linear-gradient(135deg, #a5d8ff, #4c7ef3); }
-.pya-thumb--dessert { background: linear-gradient(135deg, #ffc4e0, #e056a0); }
+.pya-thumb--burger {
+  background: linear-gradient(135deg, #ffd28a, #ff8a3d);
+}
+.pya-thumb--pizza {
+  background: linear-gradient(135deg, #ffb27a, #ef4f3a);
+}
+.pya-thumb--sushi {
+  background: linear-gradient(135deg, #a0e8c4, #16a34a);
+}
+.pya-thumb--taco {
+  background: linear-gradient(135deg, #ffe08a, #f59e0b);
+}
+.pya-thumb--chipa {
+  background: linear-gradient(135deg, #f7d9a8, #c98a3f);
+}
+.pya-thumb--asado {
+  background: linear-gradient(135deg, #ff9a76, #c0392b);
+}
+.pya-thumb--drink {
+  background: linear-gradient(135deg, #a5d8ff, #4c7ef3);
+}
+.pya-thumb--dessert {
+  background: linear-gradient(135deg, #ffc4e0, #e056a0);
+}

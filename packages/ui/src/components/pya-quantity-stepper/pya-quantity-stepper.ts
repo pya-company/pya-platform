@@ -8,7 +8,9 @@ export class PyaQuantityStepper extends LitElement {
   static formAssociated = true
   private readonly internals = this.attachInternals()
 
-  protected override createRenderRoot(): HTMLElement { return this }
+  protected override createRenderRoot(): HTMLElement {
+    return this
+  }
 
   @property({ type: Number }) value = 1
   @property({ type: Number, attribute: 'min' }) readonly min = 1
@@ -55,5 +57,7 @@ export class PyaQuantityStepper extends LitElement {
 }
 
 declare global {
-  interface HTMLElementTagNameMap { 'pya-quantity-stepper': PyaQuantityStepper }
+  interface HTMLElementTagNameMap {
+    'pya-quantity-stepper': PyaQuantityStepper
+  }
 }

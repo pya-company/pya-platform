@@ -21,11 +21,12 @@ export interface CartState {
 type Listener = (state: CartState) => void
 
 const isLine = (v: unknown): v is CartLine =>
-  typeof v === 'object' && v !== null
-  && typeof (v as { itemId?: unknown }).itemId === 'string'
-  && typeof (v as { name?: unknown }).name === 'string'
-  && typeof (v as { priceGs?: unknown }).priceGs === 'number'
-  && typeof (v as { qty?: unknown }).qty === 'number'
+  typeof v === 'object' &&
+  v !== null &&
+  typeof (v as { itemId?: unknown }).itemId === 'string' &&
+  typeof (v as { name?: unknown }).name === 'string' &&
+  typeof (v as { priceGs?: unknown }).priceGs === 'number' &&
+  typeof (v as { qty?: unknown }).qty === 'number'
 
 const read = (): CartState => {
   try {
@@ -39,21 +40,29 @@ const read = (): CartState => {
     return typeof obj.storeId === 'string' && typeof obj.storeName === 'string'
       ? { storeId: obj.storeId, storeName: obj.storeName, lines }
       : partial
-  } catch { return { lines: [] } }
+  } catch {
+    return { lines: [] }
+  }
 }
 
 const listeners = new Set<Listener>()
 
 const write = (state: CartState): void => {
-  try { globalThis.localStorage?.setItem(KEY, JSON.stringify(state)) } catch { /* quota / SSR */ }
-  listeners.forEach((l) => l(state))
+  try {
+    globalThis.localStorage?.setItem(KEY, JSON.stringify(state))
+  } catch {
+    /* quota / SSR */
+  }
+  for (const l of listeners) l(state)
 }
 
 export const cartStore = {
   read,
   subscribe(listener: Listener): () => void {
     listeners.add(listener)
-    return () => { listeners.delete(listener) }
+    return () => {
+      listeners.delete(listener)
+    }
   },
   add(storeId: string, storeName: string, item: Omit<CartLine, 'qty'>, qty = 1): void {
     const state = read()
@@ -64,14 +73,14 @@ export const cartStore = {
     }
     const existing = state.lines.find((l) => l.itemId === item.itemId)
     const lines = existing
-      ? state.lines.map((l) => l.itemId === item.itemId ? { ...l, qty: l.qty + qty } : l)
+      ? state.lines.map((l) => (l.itemId === item.itemId ? { ...l, qty: l.qty + qty } : l))
       : [...state.lines, { ...item, qty }]
     write({ storeId, storeName, lines })
   },
   setQty(itemId: string, qty: number): void {
     const state = read()
     const lines = state.lines
-      .map((l) => l.itemId === itemId ? { ...l, qty } : l)
+      .map((l) => (l.itemId === itemId ? { ...l, qty } : l))
       .filter((l) => l.qty > 0)
     write(lines.length === 0 ? { lines: [] } : { ...state, lines })
   },

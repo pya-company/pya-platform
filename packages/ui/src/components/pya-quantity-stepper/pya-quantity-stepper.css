@@ -1,4 +1,8 @@
-.pya-stepper { display: inline-flex; align-items: center; gap: var(--pya-space-2); }
+.pya-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pya-space-2);
+}
 .pya-stepper__btn {
   width: var(--pya-target-min);
   height: var(--pya-target-min);
@@ -11,8 +15,13 @@
   cursor: pointer;
 }
 /* Focus ring inherited from tokens/base.css. */
-.pya-stepper__btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.pya-stepper__btn:active { transform: scale(0.92); }
+.pya-stepper__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.pya-stepper__btn:active {
+  transform: scale(0.92);
+}
 .pya-stepper__value {
   min-width: 24px;
   text-align: center;

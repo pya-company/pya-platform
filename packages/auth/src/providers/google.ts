@@ -1,7 +1,7 @@
-import * as v from 'valibot'
-import { createLocalJWKSet, jwtVerify, type JSONWebKeySet } from 'jose'
-import { ProviderClaimsSchema, type ProviderClaims } from '@pya/shared'
+import { type ProviderClaims, ProviderClaimsSchema } from '@pya/shared'
 import { InvalidTokenError, UpstreamError } from '@pya/shared'
+import { type JSONWebKeySet, createLocalJWKSet, jwtVerify } from 'jose'
+import * as v from 'valibot'
 
 const DEFAULT_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const DEFAULT_JWKS_URL = 'https://www.googleapis.com/oauth2/v3/certs'
@@ -16,7 +16,7 @@ const buildBody = (
   clientId: string,
   clientSecret: string,
   redirectUri: string,
-  verifier: string
+  verifier: string,
 ): URLSearchParams =>
   new URLSearchParams({
     code,
@@ -27,7 +27,10 @@ const buildBody = (
     code_verifier: verifier,
   })
 
-interface JwksEntry { readonly jwks: JSONWebKeySet; readonly fetchedAt: number }
+interface JwksEntry {
+  readonly jwks: JSONWebKeySet
+  readonly fetchedAt: number
+}
 const jwksCache = new Map<string, JwksEntry>()
 const JWKS_TTL_MS = 6 * 60 * 60 * 1000
 
@@ -53,7 +56,7 @@ export const exchangeAndVerifyGoogle = async (
   redirectUri: string,
   code: string,
   verifier: string,
-  nonce: string
+  nonce: string,
 ): Promise<ProviderClaims> => {
   const clientId = env.GOOGLE_OAUTH_CLIENT_ID ?? ''
   const clientSecret = env.GOOGLE_OAUTH_CLIENT_SECRET ?? ''
@@ -103,7 +106,7 @@ export const exchangeAndVerifyGoogle = async (
 const verifyOrThrow = async (
   idToken: string,
   jwks: ReturnType<typeof createLocalJWKSet>,
-  audience: string
+  audience: string,
 ): Promise<Awaited<ReturnType<typeof jwtVerify>>> => {
   try {
     return await jwtVerify(idToken, jwks, { audience })

@@ -1,12 +1,36 @@
 /* Default palette — mango / durazno / chili.
    --pya-acc and --pya-acc2 are registered <color> via @property so palette
    changes interpolate smoothly. */
-@property --pya-acc { syntax: '<color>'; inherits: true; initial-value: #ff8a00; }
-@property --pya-acc2 { syntax: '<color>'; inherits: true; initial-value: #ff3b1f; }
-@property --pya-mesh-1 { syntax: '<color>'; inherits: true; initial-value: #ffd166; }
-@property --pya-mesh-2 { syntax: '<color>'; inherits: true; initial-value: #ff7a3d; }
-@property --pya-mesh-3 { syntax: '<color>'; inherits: true; initial-value: #ffe39c; }
-@property --pya-mesh-4 { syntax: '<color>'; inherits: true; initial-value: #ffbf86; }
+@property --pya-acc {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ff8a00;
+}
+@property --pya-acc2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ff3b1f;
+}
+@property --pya-mesh-1 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffd166;
+}
+@property --pya-mesh-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ff7a3d;
+}
+@property --pya-mesh-3 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffe39c;
+}
+@property --pya-mesh-4 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffbf86;
+}
 
 :root,
 [data-palette="mango"] {

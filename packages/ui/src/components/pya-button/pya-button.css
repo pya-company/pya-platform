@@ -16,9 +16,8 @@
   font-size: var(--pya-font-size-md);
   text-align: center;
   cursor: pointer;
-  transition:
-    background-color var(--pya-motion-fast) var(--pya-ease-standard),
-    transform var(--pya-motion-fast) var(--pya-ease-standard);
+  transition: background-color var(--pya-motion-fast) var(--pya-ease-standard), transform
+    var(--pya-motion-fast) var(--pya-ease-standard);
 }
 
 /* Focus ring inherited from tokens/base.css via :where(button):focus-visible.
@@ -35,8 +34,12 @@
   box-shadow: 0 8px 20px color-mix(in srgb, var(--pya-acc2) 30%, transparent);
 }
 
-.pya-button--primary:hover:not([disabled]) { transform: translateY(-1px); }
-.pya-button--primary:active:not([disabled]) { transform: translateY(0); }
+.pya-button--primary:hover:not([disabled]) {
+  transform: translateY(-1px);
+}
+.pya-button--primary:active:not([disabled]) {
+  transform: translateY(0);
+}
 
 .pya-button--ghost {
   background: var(--pya-surface-2);
@@ -49,8 +52,16 @@
   color: #fff;
 }
 
-.pya-button--sm { min-height: var(--pya-target-min); padding-inline: var(--pya-space-3); font-size: var(--pya-font-size-sm); }
-.pya-button--lg { min-height: var(--pya-target-comfortable); padding-inline: var(--pya-space-5); font-size: var(--pya-font-size-lg); }
+.pya-button--sm {
+  min-height: var(--pya-target-min);
+  padding-inline: var(--pya-space-3);
+  font-size: var(--pya-font-size-sm);
+}
+.pya-button--lg {
+  min-height: var(--pya-target-comfortable);
+  padding-inline: var(--pya-space-5);
+  font-size: var(--pya-font-size-lg);
+}
 
 @media (prefers-contrast: more) {
   .pya-button {

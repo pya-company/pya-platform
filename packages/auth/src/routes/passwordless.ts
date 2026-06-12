@@ -1,28 +1,27 @@
-import { Hono } from 'hono'
-import { deleteCookie, setCookie } from 'hono/cookie'
-import * as v from 'valibot'
-import type {
-  AuthenticationResponseJSON,
-  RegistrationResponseJSON,
-} from '@simplewebauthn/server'
 import {
   OtpVerifyBodySchema,
   PasskeyAuthVerifyBodySchema,
   PasskeyRegisterVerifyBodySchema,
-  RoleSchema,
-  StartBodySchema,
   type ProviderClaims,
   type Role,
+  RoleSchema,
+  StartBodySchema,
 } from '@pya/shared'
 import { ForbiddenError, UnauthorizedError, ValidationError } from '@pya/shared'
-import {
-  regenerateRecoveryCodes,
-  redeemRecoveryCode,
-  countUnusedCodes,
-  invalidateAllPasskeysForUser,
-} from '../recovery-codes.ts'
+import type { AuthenticationResponseJSON, RegistrationResponseJSON } from '@simplewebauthn/server'
+import { Hono } from 'hono'
+import { deleteCookie, setCookie } from 'hono/cookie'
+import * as v from 'valibot'
 import { provisionOrLink } from '../identity-link.ts'
 import { logAuth } from '../log.ts'
+import {
+  countUnusedCodes,
+  invalidateAllPasskeysForUser,
+  redeemRecoveryCode,
+  regenerateRecoveryCodes,
+} from '../recovery-codes.ts'
+import { issueSession, requireAuth, revokeSession } from '../session.ts'
+import { generateCode, maskEmail, sendOtpEmail, storeOtp, verifyOtp } from '../store/otp-store.ts'
 import {
   countPasskeysByUser,
   deletePasskey,
@@ -30,14 +29,6 @@ import {
   findPasskeysByUser,
   insertPasskey,
 } from '../store/passkey-store.ts'
-import {
-  generateCode,
-  maskEmail,
-  sendOtpEmail,
-  storeOtp,
-  verifyOtp,
-} from '../store/otp-store.ts'
-import { issueSession, requireAuth, revokeSession } from '../session.ts'
 import {
   genAuthOptions,
   genRegOptions,
@@ -64,7 +55,7 @@ const sha256Hex = async (input: string): Promise<string> => {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
-const parseOrThrow = <T,>(schema: v.GenericSchema<unknown, T>, raw: unknown): T => {
+const parseOrThrow = <T>(schema: v.GenericSchema<unknown, T>, raw: unknown): T => {
   const parsed = v.safeParse(schema, raw)
   if (!parsed.success) {
     throw new ValidationError({
@@ -79,7 +70,7 @@ const parseOrThrow = <T,>(schema: v.GenericSchema<unknown, T>, raw: unknown): T 
 
 const findUserByEmail = async (
   db: D1Database,
-  email: string
+  email: string,
 ): Promise<{ id: string; email: string } | undefined> => {
   const r = await db
     .prepare("SELECT id, email FROM users WHERE email = ? AND status != 'deleted'")
@@ -93,7 +84,7 @@ const findUserByEmail = async (
  *  (schema drift) are dropped via Valibot parse. */
 const loadSessionRoles = async (
   db: D1Database,
-  userId: string
+  userId: string,
 ): Promise<{ roles: Role[]; storeIds: string[] }> => {
   const { results } = await db
     .prepare('SELECT role, store_id FROM roles WHERE user_id = ?')
@@ -105,7 +96,10 @@ const loadSessionRoles = async (
     const parsed = v.safeParse(RoleSchema, r.role)
     if (!parsed.success) continue
     roleSet.add(parsed.output)
-    if (r.store_id !== null && (parsed.output === 'store_owner' || parsed.output === 'store_staff')) {
+    if (
+      r.store_id !== null &&
+      (parsed.output === 'store_owner' || parsed.output === 'store_staff')
+    ) {
       storeIds.push(r.store_id)
     }
   }
@@ -133,7 +127,7 @@ app.post('/start', async (c) => {
         await c.env.OAUTH_STATE.put(
           `webauthn:auth:${await sha256Hex(email)}`,
           JSON.stringify({ challenge: options.challenge, redirectAfter, ts: Date.now() }),
-          { expirationTtl: 300 }
+          { expirationTtl: 300 },
         )
         return c.json({ method: 'passkey' as const, options })
       }
@@ -199,9 +193,12 @@ app.post('/passkey/auth/verify', async (c) => {
   const email = body.email.toLowerCase()
 
   const stateKey = `webauthn:auth:${await sha256Hex(email)}`
-  const state = await c.env.OAUTH_STATE.get<{ challenge: string; redirectAfter: string }>(stateKey, {
-    type: 'json',
-  })
+  const state = await c.env.OAUTH_STATE.get<{ challenge: string; redirectAfter: string }>(
+    stateKey,
+    {
+      type: 'json',
+    },
+  )
   if (state === null) throw new UnauthorizedError({ reason: 'challenge_expired' })
   await c.env.OAUTH_STATE.delete(stateKey)
 
@@ -217,12 +214,13 @@ app.post('/passkey/auth/verify', async (c) => {
   const verified = await verifyAuth(c.env, assertion, state.challenge, passkey)
   if (!verified.verified) throw new UnauthorizedError({ reason: 'assertion_invalid' })
 
-  await c.env.DB
-    .prepare('UPDATE passkeys SET sign_count = ?, last_used_at = ? WHERE credential_id = ?')
+  await c.env.DB.prepare(
+    'UPDATE passkeys SET sign_count = ?, last_used_at = ? WHERE credential_id = ?',
+  )
     .bind(
       verified.authenticationInfo.newCounter,
       Math.floor(Date.now() / 1000),
-      passkey.credentialId
+      passkey.credentialId,
     )
     .run()
 
@@ -254,8 +252,7 @@ app.post('/passkey/auth/verify', async (c) => {
 // ───── /passkey/register/options ─────  (requires session)
 app.post('/passkey/register/options', requireAuth, async (c) => {
   const session = c.get('session')
-  const user = await c.env.DB
-    .prepare('SELECT email FROM users WHERE id = ?')
+  const user = await c.env.DB.prepare('SELECT email FROM users WHERE id = ?')
     .bind(session.userId)
     .first<{ email: string }>()
   if (user === null) throw new ForbiddenError({ required: 'user' })
@@ -266,7 +263,7 @@ app.post('/passkey/register/options', requireAuth, async (c) => {
   await c.env.OAUTH_STATE.put(
     `webauthn:reg:${challengeId}`,
     JSON.stringify({ userId: session.userId, challenge: options.challenge, ts: Date.now() }),
-    { expirationTtl: 300 }
+    { expirationTtl: 300 },
   )
   return c.json({ challengeId, options })
 })
@@ -347,7 +344,9 @@ app.post('/recovery/generate', requireAuth, async (c) => {
     ts: Math.floor(Date.now() / 1000),
     userId: session.userId,
     provider: 'recovery',
-    ipHash: await sha256Hex((c.req.header('CF-Connecting-IP') ?? '') + (c.env.SESSION_PEPPER ?? '')),
+    ipHash: await sha256Hex(
+      (c.req.header('CF-Connecting-IP') ?? '') + (c.env.SESSION_PEPPER ?? ''),
+    ),
     outcome: 'reused',
   })
   return c.json({ data: set })
@@ -375,8 +374,10 @@ app.post('/recovery/redeem', async (c) => {
   // biome-ignore lint/style/useNamingConvention: D1 raw columns
   type UserRow = { id: string }
   const userRow = await c.env.DB.prepare(
-    "SELECT id FROM users WHERE email = ? AND status != 'deleted'"
-  ).bind(email).first<UserRow>()
+    "SELECT id FROM users WHERE email = ? AND status != 'deleted'",
+  )
+    .bind(email)
+    .first<UserRow>()
   if (userRow === null) {
     // Don't disclose existence; same error path as a wrong code.
     throw new UnauthorizedError({ reason: 'invalid_recovery' })
@@ -392,7 +393,9 @@ app.post('/recovery/redeem', async (c) => {
     ts: Math.floor(Date.now() / 1000),
     userId: userRow.id,
     provider: 'recovery',
-    ipHash: await sha256Hex((c.req.header('CF-Connecting-IP') ?? '') + (c.env.SESSION_PEPPER ?? '')),
+    ipHash: await sha256Hex(
+      (c.req.header('CF-Connecting-IP') ?? '') + (c.env.SESSION_PEPPER ?? ''),
+    ),
     outcome: 'reused',
   })
 

@@ -1,19 +1,19 @@
-import type { Context } from 'hono'
-import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
-import * as v from 'valibot'
 import {
-  OAuthProviderSchema,
-  OAuthStateSchema,
   type OAuthProvider,
+  OAuthProviderSchema,
   type OAuthState,
+  OAuthStateSchema,
   type ProviderClaims,
 } from '@pya/shared'
 import { UnauthorizedError } from '@pya/shared'
+import type { Context } from 'hono'
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
+import * as v from 'valibot'
+import { provisionOrLink } from './identity-link.ts'
+import { logAuth } from './log.ts'
 import { exchangeAndVerifyApple } from './providers/apple.ts'
 import { exchangeAndVerifyFacebook } from './providers/facebook.ts'
 import { exchangeAndVerifyGoogle } from './providers/google.ts'
-import { provisionOrLink } from './identity-link.ts'
-import { logAuth } from './log.ts'
 import { issueSession } from './session.ts'
 
 export const buildRedirectUri = (env: Env, provider: OAuthProvider): string =>
@@ -24,7 +24,7 @@ const exchangeForProvider = (
   provider: OAuthProvider,
   redirectUri: string,
   code: string,
-  state: OAuthState
+  state: OAuthState,
 ): Promise<ProviderClaims> => {
   switch (provider) {
     case 'google':
@@ -44,9 +44,7 @@ const sha256Hex = async (input: string): Promise<string> => {
 const outcomeOf = (created: boolean, linked: boolean): 'created' | 'linked' | 'reused' =>
   created ? 'created' : linked ? 'linked' : 'reused'
 
-export const handleOAuthCallback = async (
-  c: Context<{ Bindings: Env }>
-): Promise<Response> => {
+export const handleOAuthCallback = async (c: Context<{ Bindings: Env }>): Promise<Response> => {
   const provider = v.parse(OAuthProviderSchema, c.req.param('provider'))
 
   const code = c.req.query('code')
@@ -81,7 +79,7 @@ export const handleOAuthCallback = async (
     c.env.DB,
     claims,
     stateRecord.intent ?? 'login',
-    stateRecord.currentUserId
+    stateRecord.currentUserId,
   )
 
   const ip = c.req.header('CF-Connecting-IP') ?? ''

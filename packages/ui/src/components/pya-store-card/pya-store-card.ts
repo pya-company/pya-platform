@@ -5,7 +5,9 @@ import { LOCATORS } from './pya-store-card.locators.ts'
 /** Photo-forward store card. Light DOM for a11y tree integrity. */
 @customElement('pya-store-card')
 export class PyaStoreCard extends LitElement {
-  protected override createRenderRoot(): HTMLElement { return this }
+  protected override createRenderRoot(): HTMLElement {
+    return this
+  }
 
   @property({ type: String, reflect: true }) readonly slug = ''
   @property({ type: String }) readonly name = ''
@@ -53,5 +55,7 @@ export class PyaStoreCard extends LitElement {
 }
 
 declare global {
-  interface HTMLElementTagNameMap { 'pya-store-card': PyaStoreCard }
+  interface HTMLElementTagNameMap {
+    'pya-store-card': PyaStoreCard
+  }
 }

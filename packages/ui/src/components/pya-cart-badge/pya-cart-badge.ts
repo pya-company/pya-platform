@@ -5,7 +5,9 @@ import { cartStore } from '../../controllers/cart-store.ts'
 /** Live cart badge — subscribes to cartStore and announces changes. */
 @customElement('pya-cart-badge')
 export class PyaCartBadge extends LitElement {
-  protected override createRenderRoot(): HTMLElement { return this }
+  protected override createRenderRoot(): HTMLElement {
+    return this
+  }
 
   @state() private count = 0
 
@@ -31,5 +33,7 @@ export class PyaCartBadge extends LitElement {
 }
 
 declare global {
-  interface HTMLElementTagNameMap { 'pya-cart-badge': PyaCartBadge }
+  interface HTMLElementTagNameMap {
+    'pya-cart-badge': PyaCartBadge
+  }
 }

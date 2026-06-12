@@ -1,5 +1,5 @@
+import { type SessionRecord, SessionRecordSchema } from '@pya/shared'
 import * as v from 'valibot'
-import { SessionRecordSchema, type SessionRecord } from '@pya/shared'
 
 const SESSION_TTL_SEC = 60 * 60 * 24 * 30
 const SLIDING_LAST_SEEN_MIN_SEC = 60
@@ -17,7 +17,7 @@ export const newSessionId = (): string => {
 export const writeSession = async (
   kv: KVNamespace,
   sid: string,
-  record: SessionRecord
+  record: SessionRecord,
 ): Promise<void> => {
   await kv.put(`sess:${sid}`, JSON.stringify(record), {
     expirationTtl: SESSION_TTL_SEC,
@@ -26,7 +26,7 @@ export const writeSession = async (
 
 export const readSession = async (
   kv: KVNamespace,
-  sid: string
+  sid: string,
 ): Promise<SessionRecord | undefined> => {
   const raw = await kv.get(`sess:${sid}`, { type: 'json' })
   if (raw === null) return undefined
@@ -37,7 +37,7 @@ export const readSession = async (
 export const touchSession = async (
   kv: KVNamespace,
   sid: string,
-  record: SessionRecord
+  record: SessionRecord,
 ): Promise<void> => {
   const now = Math.floor(Date.now() / 1000)
   const shouldWrite = now - record.lastSeen >= SLIDING_LAST_SEEN_MIN_SEC
@@ -45,9 +45,6 @@ export const touchSession = async (
   await writeSession(kv, sid, { ...record, lastSeen: now })
 }
 
-export const deleteSession = async (
-  kv: KVNamespace,
-  sid: string
-): Promise<void> => {
+export const deleteSession = async (kv: KVNamespace, sid: string): Promise<void> => {
   await kv.delete(`sess:${sid}`)
 }

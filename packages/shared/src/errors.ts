@@ -57,15 +57,25 @@ export type DomainError =
 
 export const mapErrorToStatus = (error: DomainError): number => {
   switch (error._tag) {
-    case 'Unauthorized': return 401
-    case 'Forbidden': return 403
-    case 'NotFound': return 404
-    case 'Validation': return 422
-    case 'Conflict': return 409
-    case 'RateLimited': return 429
-    case 'Upstream': return 502
-    case 'InvalidToken': return 401
-    case 'IdentityConflict': return 409
-    case 'ProviderNotEnabled': return 501
+    case 'Unauthorized':
+      return 401
+    case 'Forbidden':
+      return 403
+    case 'NotFound':
+      return 404
+    case 'Validation':
+      return 422
+    case 'Conflict':
+      return 409
+    case 'RateLimited':
+      return 429
+    case 'Upstream':
+      return 502
+    case 'InvalidToken':
+      return 401
+    case 'IdentityConflict':
+      return 409
+    case 'ProviderNotEnabled':
+      return 501
   }
 }

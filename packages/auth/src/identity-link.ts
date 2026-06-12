@@ -1,4 +1,4 @@
-import { uuidV7, type ProviderClaims } from '@pya/shared'
+import { type ProviderClaims, uuidV7 } from '@pya/shared'
 import { IdentityConflictError } from '@pya/shared'
 
 export interface LinkResult {
@@ -11,7 +11,7 @@ const insertIdentity = (db: D1Database, userId: string, claims: ProviderClaims, 
   db
     .prepare(
       `INSERT INTO user_identities (user_id, provider, subject, email_at_link, linked_at)
-       VALUES (?, ?, ?, ?, ?)`
+       VALUES (?, ?, ?, ?, ?)`,
     )
     .bind(userId, claims.provider, claims.subject, claims.email, ts)
 
@@ -19,7 +19,7 @@ export const provisionOrLink = async (
   db: D1Database,
   claims: ProviderClaims,
   intent: 'login' | 'link',
-  currentUserId: string | undefined
+  currentUserId: string | undefined,
 ): Promise<LinkResult> => {
   const now = Math.floor(Date.now() / 1000)
 
@@ -55,7 +55,7 @@ export const provisionOrLink = async (
     db
       .prepare(
         `INSERT INTO users (id, email, email_verified, display_name, locale, created_at, status)
-         VALUES (?, ?, 1, ?, ?, ?, 'active')`
+         VALUES (?, ?, 1, ?, ?, ?, 'active')`,
       )
       .bind(userId, claims.email, claims.displayName ?? null, claims.locale ?? 'es-PY', now),
     insertIdentity(db, userId, claims, now),

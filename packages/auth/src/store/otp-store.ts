@@ -29,7 +29,8 @@ const sha256Hex = async (input: string): Promise<string> => {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
-const keyFor = async (email: string): Promise<string> => `otp:${await sha256Hex(email.toLowerCase())}`
+const keyFor = async (email: string): Promise<string> =>
+  `otp:${await sha256Hex(email.toLowerCase())}`
 const hashCode = (code: string, email: string, pepper: string): Promise<string> =>
   sha256Hex(`${code}|${email.toLowerCase()}|${pepper}`)
 
@@ -38,7 +39,7 @@ export const storeOtp = async (
   env: { readonly SESSION_PEPPER?: string },
   email: string,
   code: string,
-  redirectAfter: string
+  redirectAfter: string,
 ): Promise<void> => {
   const record: OtpRecord = {
     codeHash: await hashCode(code, email, env.SESSION_PEPPER ?? ''),
@@ -54,7 +55,7 @@ export const verifyOtp = async (
   kv: KVNamespace,
   env: { readonly SESSION_PEPPER?: string },
   email: string,
-  code: string
+  code: string,
 ): Promise<VerifyResult> => {
   const key = await keyFor(email)
   const raw = await kv.get<OtpRecord>(key, { type: 'json' })
@@ -102,18 +103,15 @@ const renderHtml = (code: string, magicLink: string): string => `<!DOCTYPE html>
 const renderText = (code: string, magicLink: string): string =>
   `PyaEats — tu código de acceso (válido 10 min)\n\nCódigo: ${code}\n\nO accedé directamente: ${magicLink}\n\nSi no fuiste vos, ignorá este email.`
 
-export const sendOtpEmail = async (
-  env: Env,
-  email: string,
-  code: string
-): Promise<void> => {
+export const sendOtpEmail = async (env: Env, email: string, code: string): Promise<void> => {
   // Prefer the verified domain whenever EMAIL_DOMAIN is set (regardless of
   // ENVIRONMENT) — that's the marker that domain verify in Resend completed.
   // Fall back to Resend's sandbox sender (onboarding@resend.dev) only when no
   // domain is verified yet (sends restricted to the account-verified address).
-  const sender = env.EMAIL_DOMAIN !== undefined && env.EMAIL_DOMAIN !== ''
-    ? `PyaEats <noreply@${env.EMAIL_DOMAIN}>`
-    : 'PyaEats Dev <onboarding@resend.dev>'
+  const sender =
+    env.EMAIL_DOMAIN !== undefined && env.EMAIL_DOMAIN !== ''
+      ? `PyaEats <noreply@${env.EMAIL_DOMAIN}>`
+      : 'PyaEats Dev <onboarding@resend.dev>'
 
   // Site origin without trailing slash. Fragment-encoded so mail scanners that
   // pre-fetch the URL don't consume the one-shot code (fragments aren't sent).
@@ -137,13 +135,15 @@ export const sendOtpEmail = async (
   if (!res.ok) {
     const body = await res.text().catch(() => '')
     // Surface Resend's reason in worker logs (captured by `wrangler tail`).
-    console.error(JSON.stringify({
-      stream: 'audit',
-      event: 'auth.email.send_failed',
-      provider: 'resend',
-      status: res.status,
-      body: body.slice(0, 500),
-    }))
+    console.error(
+      JSON.stringify({
+        stream: 'audit',
+        event: 'auth.email.send_failed',
+        provider: 'resend',
+        status: res.status,
+        body: body.slice(0, 500),
+      }),
+    )
     throw new UpstreamError({ provider: 'resend', status: res.status })
   }
 }

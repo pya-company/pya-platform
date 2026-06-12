@@ -39,7 +39,7 @@ const fromRow = (r: RawRow): PasskeyRow => ({
 
 export const findPasskeysByUser = async (
   db: D1Database,
-  userId: string
+  userId: string,
 ): Promise<ReadonlyArray<PasskeyRow>> => {
   const { results } = await db
     .prepare('SELECT * FROM passkeys WHERE user_id = ?')
@@ -50,7 +50,7 @@ export const findPasskeysByUser = async (
 
 export const findPasskeyByCredentialId = async (
   db: D1Database,
-  credentialId: string
+  credentialId: string,
 ): Promise<PasskeyRow | undefined> => {
   const r = await db
     .prepare('SELECT * FROM passkeys WHERE credential_id = ?')
@@ -61,14 +61,14 @@ export const findPasskeyByCredentialId = async (
 
 export const insertPasskey = async (
   db: D1Database,
-  row: Omit<PasskeyRow, 'createdAt' | 'lastUsedAt'>
+  row: Omit<PasskeyRow, 'createdAt' | 'lastUsedAt'>,
 ): Promise<void> => {
   const now = Math.floor(Date.now() / 1000)
   await db
     .prepare(
       `INSERT INTO passkeys
        (credential_id, user_id, public_key, sign_count, transports, label, created_at, last_used_at, backup_eligible, backup_state)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       row.credentialId,
@@ -80,7 +80,7 @@ export const insertPasskey = async (
       now,
       now,
       row.backupEligible ? 1 : 0,
-      row.backupState ? 1 : 0
+      row.backupState ? 1 : 0,
     )
     .run()
 }
@@ -88,7 +88,7 @@ export const insertPasskey = async (
 export const updatePasskeyUse = async (
   db: D1Database,
   credentialId: string,
-  newSignCount: number
+  newSignCount: number,
 ): Promise<void> => {
   const now = Math.floor(Date.now() / 1000)
   await db
@@ -100,7 +100,7 @@ export const updatePasskeyUse = async (
 export const deletePasskey = async (
   db: D1Database,
   credentialId: string,
-  userId: string
+  userId: string,
 ): Promise<void> => {
   await db
     .prepare('DELETE FROM passkeys WHERE credential_id = ? AND user_id = ?')
@@ -108,10 +108,7 @@ export const deletePasskey = async (
     .run()
 }
 
-export const countPasskeysByUser = async (
-  db: D1Database,
-  userId: string
-): Promise<number> => {
+export const countPasskeysByUser = async (db: D1Database, userId: string): Promise<number> => {
   const r = await db
     .prepare('SELECT COUNT(*) AS n FROM passkeys WHERE user_id = ?')
     .bind(userId)

@@ -5,7 +5,9 @@
 }
 
 @supports not (backdrop-filter: blur(1px)) {
-  :root { --pya-glass-blur: none; }
+  :root {
+    --pya-glass-blur: none;
+  }
 }
 
 @media (prefers-contrast: more) {

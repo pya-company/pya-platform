@@ -17,8 +17,8 @@
   --pya-border: #f1e1d3;
   --pya-border-strong: #e6d2c0;
 
-  --pya-shadow-sm: 0 2px 10px rgba(120, 60, 20, .08);
-  --pya-shadow: 0 8px 28px rgba(120, 60, 20, .10);
+  --pya-shadow-sm: 0 2px 10px rgba(120, 60, 20, 0.08);
+  --pya-shadow: 0 8px 28px rgba(120, 60, 20, 0.1);
 
   --pya-glass-tint: #ffffff;
   --pya-glass-bg: rgba(255, 255, 255, 0.85);

@@ -33,10 +33,15 @@ export const sendEmail = async (params: SendEmailParams): Promise<{ readonly ok:
   const { env, to, subject, text, html, brandName = 'Pya', fromLocal = 'noreply' } = params
   const apiKey = env.RESEND_API_KEY ?? ''
   if (apiKey === '') {
-    console.error(JSON.stringify({
-      stream: 'audit', event: 'email.send_skipped', reason: 'RESEND_API_KEY unset',
-      to, subject,
-    }))
+    console.error(
+      JSON.stringify({
+        stream: 'audit',
+        event: 'email.send_skipped',
+        reason: 'RESEND_API_KEY unset',
+        to,
+        subject,
+      }),
+    )
     return { ok: false }
   }
   const res = await fetch('https://api.resend.com/emails', {
@@ -55,11 +60,17 @@ export const sendEmail = async (params: SendEmailParams): Promise<{ readonly ok:
   })
   if (!res.ok) {
     const body = await res.text().catch(() => '')
-    console.error(JSON.stringify({
-      stream: 'audit', event: 'email.send_failed',
-      provider: 'resend', status: res.status,
-      to, subject, body: body.slice(0, 500),
-    }))
+    console.error(
+      JSON.stringify({
+        stream: 'audit',
+        event: 'email.send_failed',
+        provider: 'resend',
+        status: res.status,
+        to,
+        subject,
+        body: body.slice(0, 500),
+      }),
+    )
     return { ok: false }
   }
   return { ok: true }
@@ -68,7 +79,8 @@ export const sendEmail = async (params: SendEmailParams): Promise<{ readonly ok:
 /** Minimal HTML escape for embedding user-supplied text in templates.
  *  Use ONLY where the consumer is the email client, not the browser DOM. */
 export const escapeHtml = (s: string): string =>
-  s.replaceAll('&', '&amp;')
+  s
+    .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')

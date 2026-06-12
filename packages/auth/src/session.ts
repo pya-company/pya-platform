@@ -1,14 +1,14 @@
+import { UnauthorizedError } from '@pya/shared'
+import type { SessionRecord } from '@pya/shared'
+import { type deleteCookie, getCookie, type setCookie } from 'hono/cookie'
 import { createMiddleware } from 'hono/factory'
-import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import {
+  deleteSession,
   newSessionId,
   readSession,
   touchSession,
   writeSession,
-  deleteSession,
 } from './store/session-store.ts'
-import { UnauthorizedError } from '@pya/shared'
-import type { SessionRecord } from '@pya/shared'
 
 const COOKIE_NAME = 'pya_sid'
 const COOKIE_NAME_ADMIN = 'pya_sid_admin'
@@ -30,9 +30,7 @@ export const requireAuth = createMiddleware<{
   // (cross-origin preview where third-party cookies are blocked).
   const cookieSid = getCookie(c, isAdmin ? COOKIE_NAME_ADMIN : COOKIE_NAME)
   const auth = c.req.header('Authorization')
-  const bearerSid = auth !== undefined && auth.startsWith('Bearer ')
-    ? auth.slice('Bearer '.length).trim()
-    : undefined
+  const bearerSid = auth?.startsWith('Bearer ') ? auth.slice('Bearer '.length).trim() : undefined
   const sid = cookieSid ?? bearerSid
   if (sid === undefined) {
     throw new UnauthorizedError({ reason: 'missing session token' })
@@ -62,7 +60,7 @@ export const issueSession = async (
   c: { env: Env; req: { header: (k: string) => string | undefined } },
   setCookieFn: typeof setCookie,
   isAdmin: boolean,
-  baseRecord: Omit<SessionRecord, 'iat' | 'lastSeen' | 'ipHash' | 'uaHash'>
+  baseRecord: Omit<SessionRecord, 'iat' | 'lastSeen' | 'ipHash' | 'uaHash'>,
 ): Promise<IssuedSession> => {
   const now = Math.floor(Date.now() / 1000)
   const ip = c.req.header('CF-Connecting-IP') ?? ''
@@ -98,7 +96,7 @@ export const revokeSession = async (
   c: { env: Env },
   setCookieFn: typeof deleteCookie,
   sid: string,
-  isAdmin: boolean
+  isAdmin: boolean,
 ): Promise<void> => {
   await deleteSession(c.env.SESSIONS, sid)
   setCookieFn(c as never, isAdmin ? COOKIE_NAME_ADMIN : COOKIE_NAME, { path: '/' })

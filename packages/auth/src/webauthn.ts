@@ -1,8 +1,4 @@
 import {
-  generateAuthenticationOptions,
-  generateRegistrationOptions,
-  verifyAuthenticationResponse,
-  verifyRegistrationResponse,
   type AuthenticationResponseJSON,
   type AuthenticatorTransportFuture,
   type PublicKeyCredentialCreationOptionsJSON,
@@ -10,18 +6,28 @@ import {
   type RegistrationResponseJSON,
   type VerifiedAuthenticationResponse,
   type VerifiedRegistrationResponse,
+  generateAuthenticationOptions,
+  generateRegistrationOptions,
+  verifyAuthenticationResponse,
+  verifyRegistrationResponse,
 } from '@simplewebauthn/server'
 import type { PasskeyRow } from './store/passkey-store.ts'
 
 const rpName = 'PyaEats'
 
 const expectedOrigins = (env: Env): ReadonlyArray<string> =>
-  (env.WEBAUTHN_ORIGINS ?? '').split(',').map((s) => s.trim()).filter((s) => s.length > 0)
+  (env.WEBAUTHN_ORIGINS ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0)
 
 const rpID = (env: Env): string => env.WEBAUTHN_RP_ID ?? 'pyaeats-site.pages.dev'
 
 const base64urlToUint8 = (s: string): Uint8Array<ArrayBuffer> => {
-  const padded = s.replace(/-/g, '+').replace(/_/g, '/').padEnd(s.length + ((4 - (s.length % 4)) % 4), '=')
+  const padded = s
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
+    .padEnd(s.length + ((4 - (s.length % 4)) % 4), '=')
   const bin = atob(padded)
   const ab = new ArrayBuffer(bin.length)
   const buf = new Uint8Array(ab)
@@ -31,7 +37,7 @@ const base64urlToUint8 = (s: string): Uint8Array<ArrayBuffer> => {
 
 export const genAuthOptions = async (
   env: Env,
-  passkeys: ReadonlyArray<PasskeyRow>
+  passkeys: ReadonlyArray<PasskeyRow>,
 ): Promise<PublicKeyCredentialRequestOptionsJSON> =>
   generateAuthenticationOptions({
     rpID: rpID(env),
@@ -47,7 +53,7 @@ export const genRegOptions = async (
   env: Env,
   userId: string,
   userEmail: string,
-  existing: ReadonlyArray<PasskeyRow>
+  existing: ReadonlyArray<PasskeyRow>,
 ): Promise<PublicKeyCredentialCreationOptionsJSON> =>
   generateRegistrationOptions({
     rpName,
@@ -70,7 +76,7 @@ export const verifyAuth = async (
   env: Env,
   assertion: AuthenticationResponseJSON,
   expectedChallenge: string,
-  passkey: PasskeyRow
+  passkey: PasskeyRow,
 ): Promise<VerifiedAuthenticationResponse> =>
   verifyAuthenticationResponse({
     response: assertion,
@@ -89,7 +95,7 @@ export const verifyAuth = async (
 export const verifyReg = async (
   env: Env,
   attestation: RegistrationResponseJSON,
-  expectedChallenge: string
+  expectedChallenge: string,
 ): Promise<VerifiedRegistrationResponse> =>
   verifyRegistrationResponse({
     response: attestation,
@@ -101,6 +107,6 @@ export const verifyReg = async (
 
 export const uint8ToBase64url = (bytes: Uint8Array): string => {
   let bin = ''
-  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]!)
+  for (const b of bytes) bin += String.fromCharCode(b)
   return btoa(bin).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '')
 }

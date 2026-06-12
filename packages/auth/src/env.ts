@@ -55,5 +55,3 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Env extends PyaAuthBindings {}
 }
-
-export {}

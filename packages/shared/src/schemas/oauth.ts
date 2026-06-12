@@ -1,5 +1,5 @@
 import * as v from 'valibot'
-import { IdentityProviderSchema, EmailSchema } from './user.ts'
+import { EmailSchema, IdentityProviderSchema } from './user.ts'
 
 export const ProviderClaimsSchema = v.object({
   provider: IdentityProviderSchema,

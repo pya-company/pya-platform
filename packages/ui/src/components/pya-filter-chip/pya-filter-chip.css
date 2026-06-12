@@ -21,6 +21,15 @@
   border-color: var(--pya-acc);
 }
 @media (prefers-contrast: more) {
-  .pya-chip { border-width: 3px; border-color: ButtonText; background: ButtonFace; color: ButtonText; }
-  .pya-chip[aria-pressed="true"] { background: Highlight; color: HighlightText; border-color: Highlight; }
+  .pya-chip {
+    border-width: 3px;
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .pya-chip[aria-pressed="true"] {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
 }

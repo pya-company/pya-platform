@@ -5,9 +5,7 @@
   "type": "module",
   "description": "Pya platform — reusable engine powering PyaEats, PyaServ, and future Pya projects.",
   "packageManager": "bun@1.2.0",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "type-check": "bun --filter '*' type-check",
     "lint": "biome check .",

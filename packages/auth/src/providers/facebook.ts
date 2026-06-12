@@ -6,7 +6,7 @@ export const exchangeAndVerifyFacebook = async (
   _redirectUri: string,
   _code: string,
   _verifier: string,
-  _nonce: string
+  _nonce: string,
 ): Promise<ProviderClaims> => {
   throw new ProviderNotEnabledError({ provider: 'facebook' })
 }

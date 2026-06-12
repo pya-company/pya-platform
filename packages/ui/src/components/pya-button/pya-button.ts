@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit'
+import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { LOCATORS } from './pya-button.locators.ts'
 
@@ -9,12 +9,12 @@ import { LOCATORS } from './pya-button.locators.ts'
  */
 @customElement('pya-button')
 export class PyaButton extends LitElement {
-  protected override createRenderRoot(): HTMLElement { return this }
+  protected override createRenderRoot(): HTMLElement {
+    return this
+  }
 
-  @property({ type: String, reflect: true }) readonly variant:
-    | 'primary'
-    | 'ghost'
-    | 'danger' = 'primary'
+  @property({ type: String, reflect: true }) readonly variant: 'primary' | 'ghost' | 'danger' =
+    'primary'
 
   @property({ type: String, reflect: true }) readonly size: 'sm' | 'md' | 'lg' = 'md'
 

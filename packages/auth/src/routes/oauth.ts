@@ -1,9 +1,9 @@
+import { type OAuthProvider, OAuthProviderSchema, type OAuthState } from '@pya/shared'
+import { ValidationError } from '@pya/shared'
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import * as v from 'valibot'
-import { OAuthProviderSchema, type OAuthProvider, type OAuthState } from '@pya/shared'
-import { ValidationError } from '@pya/shared'
-import { handleOAuthCallback, buildRedirectUri } from '../oauth-callback.ts'
+import { buildRedirectUri, handleOAuthCallback } from '../oauth-callback.ts'
 import { revokeSession } from '../session.ts'
 
 const STATE_TTL_SEC = 600
@@ -86,7 +86,7 @@ const buildProviderAuthUrl = (
   env: Env,
   state: string,
   challenge: string,
-  nonce: string
+  nonce: string,
 ): string => {
   const redirectUri = buildRedirectUri(env, provider)
   const common = {
