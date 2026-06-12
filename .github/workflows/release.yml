@@ -3,6 +3,7 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: release-${{ github.ref }}
@@ -25,18 +26,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Write ~/.npmrc with resolved token
+      - name: Diagnose token + write ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          echo "token length: ${#NPM_TOKEN}"
+          echo "token starts with: ${NPM_TOKEN:0:5}..."
           {
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
             echo "@pya-platform:registry=https://registry.npmjs.org"
           } > "$HOME/.npmrc"
-          echo "--- ~/.npmrc (redacted) ---"
-          sed 's/_authToken=npm_[A-Za-z0-9]*/_authToken=npm_***REDACTED***/' "$HOME/.npmrc"
-          echo "--- npm whoami ---"
-          npm whoami
+          echo "--- direct curl whoami ---"
+          curl -sS -o /dev/null -w "HTTP %{http_code}\n" -H "Authorization: Bearer $NPM_TOKEN" https://registry.npmjs.org/-/whoami
+          echo "--- npm whoami (verbose) ---"
+          npm whoami --loglevel=http 2>&1 | grep -E "http|HTTP|Authoriz" | head -10 || true
       - run: bun install --frozen-lockfile
       - id: changesets
         uses: changesets/action@v1
