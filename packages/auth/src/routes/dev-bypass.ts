@@ -1,8 +1,8 @@
 import { Hono } from 'hono'
 import { setCookie } from 'hono/cookie'
-import { uuidV7 } from '@undeadliner/pya-shared'
+import { uuidV7 } from '@pya/shared'
 import { writeSession, newSessionId } from '../store/session-store.ts'
-import { ForbiddenError } from '@undeadliner/pya-shared'
+import { ForbiddenError } from '@pya/shared'
 
 // Optional sweep hook the host app can inject (e.g. PyaEats wires up its
 // stale-order cancel sweep). The router accepts undefined and skips

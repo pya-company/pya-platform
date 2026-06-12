@@ -28,7 +28,7 @@ export {
   writeSession,
   deleteSession,
 } from './store/session-store.ts'
-// Re-export domain errors so consumers don't need to import @undeadliner/pya-shared
+// Re-export domain errors so consumers don't need to import @pya/shared
 // separately just for `mapErrorToStatus` / `UnauthorizedError` / etc.
 export {
   UnauthorizedError,
@@ -43,4 +43,4 @@ export {
   ProviderNotEnabledError,
   mapErrorToStatus,
   type DomainError,
-} from '@undeadliner/pya-shared'
+} from '@pya/shared'

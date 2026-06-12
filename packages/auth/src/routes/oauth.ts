@@ -1,8 +1,8 @@
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import * as v from 'valibot'
-import { OAuthProviderSchema, type OAuthProvider, type OAuthState } from '@undeadliner/pya-shared'
-import { ValidationError } from '@undeadliner/pya-shared'
+import { OAuthProviderSchema, type OAuthProvider, type OAuthState } from '@pya/shared'
+import { ValidationError } from '@pya/shared'
 import { handleOAuthCallback, buildRedirectUri } from '../oauth-callback.ts'
 import { revokeSession } from '../session.ts'
 

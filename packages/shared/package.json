@@ -1,8 +1,8 @@
 {
-  "name": "@undeadliner/pya-shared",
+  "name": "@pya/shared",
   "version": "0.0.0",
   "private": false,
-  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
   "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "Common Valibot schemas, id helpers, money/time primitives — shared by every Pya project.",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@undeadliner/pya-shared has no tests yet'"
+    "test": "echo '@pya/shared has no tests yet'"
   },
   "dependencies": {
     "effect": "^3.10.0",

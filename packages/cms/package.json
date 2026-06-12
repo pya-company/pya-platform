@@ -1,8 +1,8 @@
 {
-  "name": "@undeadliner/pya-cms",
+  "name": "@pya/cms",
   "version": "0.0.0",
   "private": false,
-  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
   "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "Articles CMS with AI-translation banner and GitHub PR-back links. Admin-only writes, public reads.",
@@ -11,10 +11,10 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@undeadliner/pya-cms has no tests yet'"
+    "test": "echo '@pya/cms has no tests yet'"
   },
   "dependencies": {
-    "@undeadliner/pya-shared": "workspace:*",
+    "@pya/shared": "workspace:*",
     "hono": "^4.6.0",
     "valibot": "^1.0.0"
   },

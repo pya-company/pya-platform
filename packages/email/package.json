@@ -1,8 +1,8 @@
 {
-  "name": "@undeadliner/pya-email",
+  "name": "@pya/email",
   "version": "0.0.0",
   "private": false,
-  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
   "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "Resend wrapper — single sendEmail entry, audit-log on failure, never throws.",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@undeadliner/pya-email has no tests yet'"
+    "test": "echo '@pya/email has no tests yet'"
   },
   "peerDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0"

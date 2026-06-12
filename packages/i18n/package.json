@@ -1,8 +1,8 @@
 {
-  "name": "@undeadliner/pya-i18n",
+  "name": "@pya/i18n",
   "version": "0.0.0",
   "private": false,
-  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" },
+  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
   "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
   "type": "module",
   "description": "i18n dictionary helper — getT, locale routing, missing-key reporting.",
@@ -11,6 +11,6 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test": "echo '@undeadliner/pya-i18n has no tests yet'"
+    "test": "echo '@pya/i18n has no tests yet'"
   }
 }

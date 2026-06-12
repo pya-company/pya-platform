@@ -13,8 +13,8 @@ import {
   StartBodySchema,
   type ProviderClaims,
   type Role,
-} from '@undeadliner/pya-shared'
-import { ForbiddenError, UnauthorizedError, ValidationError } from '@undeadliner/pya-shared'
+} from '@pya/shared'
+import { ForbiddenError, UnauthorizedError, ValidationError } from '@pya/shared'
 import {
   regenerateRecoveryCodes,
   redeemRecoveryCode,

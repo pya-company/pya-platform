@@ -1,50 +1,44 @@
-# Consuming `@undeadliner/pya-*`
+# Consuming `@pya/*`
 
-Published to **GitHub Packages** under the `@undeadliner` scope, since GH Packages requires the npm scope to match the repository owner. Brand identity is preserved in the package suffix (`@undeadliner/pya-auth`, not `@undeadliner/auth`) so a future org migration is a flat rename.
+Published to **npmjs.org** under the `pya` org. Packages are **public** — no auth needed to install.
 
 ## In a consumer repo
 
-### `.npmrc` (repo root)
+### `package.json`
 
-```
-@undeadliner:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GH_PACKAGES_TOKEN}
+```jsonc
+{
+  "dependencies": {
+    "@pya/auth": "^0.1.0",
+    "@pya/shared": "^0.1.0"
+  }
+}
 ```
 
-Local devs need a PAT with `read:packages` scope in their shell env:
-
-```bash
-export GH_PACKAGES_TOKEN=ghp_xxxxxxxxxxxx
-bun install
-```
+`bun install` works out of the box. No `.npmrc`, no token.
 
 ### GitHub Actions
 
-CI doesn't need a PAT — `GITHUB_TOKEN` carries `packages: read` once the workflow opts in:
+Nothing special:
 
 ```yaml
-permissions:
-  packages: read
-steps:
-  - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+- run: bun install --frozen-lockfile
 ```
 
-### Local cross-repo workspace (no token needed)
+### Local cross-repo workspace (faster iteration on the platform)
 
-When you're iterating on the platform itself, drop the registry deps and point at the sibling checkout via Bun overrides — same package names, no install round-trip:
+When you're iterating on the platform itself, point the consumer at the sibling checkout via Bun overrides — same package names, no install round-trip:
 
 ```jsonc
 // pyaeats-app/package.json
 {
   "dependencies": {
-    "@undeadliner/pya-auth": "*"
+    "@pya/auth": "^0.1.0"
   },
   "overrides": {
-    "@undeadliner/pya-auth": "file:../pya-platform/packages/auth"
+    "@pya/auth": "file:../pya-platform/packages/auth"
   }
 }
 ```
 
-This is what `pyaeats-app` and `pyaserv` use today during the Phase 6 cutover, with the registry deps activated once each app's CI is rewired.
+This is what `pyaeats-app` and `pyaserv` use during active development. CI checks out only the consumer, so `bun install` resolves through the registry instead (overrides on a missing sibling fall back to the dep). Drop the overrides for prod-only branches if you want a registry-pinned build.

@@ -1,5 +1,5 @@
-import { uuidV7, type ProviderClaims } from '@undeadliner/pya-shared'
-import { IdentityConflictError } from '@undeadliner/pya-shared'
+import { uuidV7, type ProviderClaims } from '@pya/shared'
+import { IdentityConflictError } from '@pya/shared'
 
 export interface LinkResult {
   readonly userId: string
