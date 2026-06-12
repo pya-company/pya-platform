@@ -26,20 +26,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Diagnose token + write ~/.npmrc
+      # setup-node's auto-generated .npmrc uses ${NODE_AUTH_TOKEN} interpolation
+      # which `bun run`-spawned child processes do not resolve consistently.
+      # Write a resolved-value ~/.npmrc instead — works for both npm and bun-spawned npm.
+      - name: Configure npm auth
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "token length: ${#NPM_TOKEN}"
-          echo "token starts with: ${NPM_TOKEN:0:5}..."
           {
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
             echo "@pya-platform:registry=https://registry.npmjs.org"
           } > "$HOME/.npmrc"
-          echo "--- direct curl whoami ---"
-          curl -sS -o /dev/null -w "HTTP %{http_code}\n" -H "Authorization: Bearer $NPM_TOKEN" https://registry.npmjs.org/-/whoami
-          echo "--- npm whoami (verbose) ---"
-          npm whoami --loglevel=http 2>&1 | grep -E "http|HTTP|Authoriz" | head -10 || true
+          npm whoami
       - run: bun install --frozen-lockfile
       - id: changesets
         uses: changesets/action@v1
