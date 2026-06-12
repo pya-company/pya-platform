@@ -1,9 +1,15 @@
 {
   "name": "@pya/comments",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": false,
-  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
-  "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undeadliner/pya-platform.git"
+  },
   "type": "module",
   "description": "Threaded comments on any entity — owner reply, soft-delete, basic moderation hooks.",
   "exports": {

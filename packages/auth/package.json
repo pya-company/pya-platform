@@ -1,9 +1,15 @@
 {
   "name": "@pya/auth",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": false,
-  "publishConfig": { "registry": "https://registry.npmjs.org", "access": "public" },
-  "repository": { "type": "git", "url": "https://github.com/undeadliner/pya-platform.git" },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undeadliner/pya-platform.git"
+  },
   "type": "module",
   "description": "Auth engine — passwordless (OTP + magic link), passkey/WebAuthn, OAuth, recovery codes, sessions (KV), CSRF. Hono router factories parameterised over D1/KV bindings.",
   "exports": {
