@@ -27,6 +27,12 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
           scope: '@pya-platform'
+      - name: Write npm auth (bun does not interpolate ${VAR} in .npmrc)
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "@pya-platform:registry=https://registry.npmjs.org" >> ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: bun install --frozen-lockfile
       # changesets/action either opens a Version Packages PR, or runs `publish`
       # when a previously-merged Version PR landed on main. First run on a
