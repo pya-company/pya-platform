@@ -1,10 +1,10 @@
 {
-  "name": "@pya-platform/reviews",
+  "name": "@undeadliner/pya-reviews",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "test": "echo '@pya/reviews has no tests yet'"
   },
   "dependencies": {
-    "@pya-platform/shared": "workspace:*",
+    "@undeadliner/pya-shared": "workspace:*",
     "valibot": "^1.0.0"
   },
   "peerDependencies": {

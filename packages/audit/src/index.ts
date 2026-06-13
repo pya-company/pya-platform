@@ -1,4 +1,4 @@
-// @pya-platform/audit — structured audit logging.
+// @undeadliner/pya-audit — structured audit logging.
 //
 // Every event is a single JSON line on stdout, prefixed with stream:'audit'.
 // Cloudflare Workers tail logs aggregate by stream tag; downstream pipelines

@@ -1,4 +1,4 @@
-import { type SessionRecord, SessionRecordSchema } from '@pya-platform/shared'
+import { type SessionRecord, SessionRecordSchema } from '@undeadliner/pya-shared'
 import * as v from 'valibot'
 
 const SESSION_TTL_SEC = 60 * 60 * 24 * 30

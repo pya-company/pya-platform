@@ -1,4 +1,4 @@
-// @pya-platform/auth — public surface.
+// @undeadliner/pya-auth — public surface.
 //
 // Hono router factories + middleware. Each consumer wires its own Worker
 // like so:
@@ -28,7 +28,7 @@ export {
   writeSession,
   deleteSession,
 } from './store/session-store.ts'
-// Re-export domain errors so consumers don't need to import @pya-platform/shared
+// Re-export domain errors so consumers don't need to import @undeadliner/pya-shared
 // separately just for `mapErrorToStatus` / `UnauthorizedError` / etc.
 export {
   UnauthorizedError,
@@ -43,4 +43,4 @@ export {
   ProviderNotEnabledError,
   mapErrorToStatus,
   type DomainError,
-} from '@pya-platform/shared'
+} from '@undeadliner/pya-shared'

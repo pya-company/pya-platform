@@ -1,4 +1,4 @@
-// @pya-platform/reviews — 5-star reviews + running-average rounding.
+// @undeadliner/pya-reviews — 5-star reviews + running-average rounding.
 //
 // Pyaeats-app has the canonical implementation in
 // `apps/api/src/features/reviews/reviews.repo.ts`. The shape is already

@@ -1,10 +1,10 @@
 {
-  "name": "@pya-platform/auth",
+  "name": "@undeadliner/pya-auth",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "test": "echo '@pya/auth has no tests yet'"
   },
   "dependencies": {
-    "@pya-platform/shared": "workspace:*",
+    "@undeadliner/pya-shared": "workspace:*",
     "@simplewebauthn/server": "^13.3.0",
     "effect": "^3.10.0",
     "hono": "^4.6.0",

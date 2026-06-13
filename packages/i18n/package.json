@@ -1,10 +1,10 @@
 {
-  "name": "@pya-platform/i18n",
+  "name": "@undeadliner/pya-i18n",
   "version": "0.1.0",
   "private": false,
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "repository": {
     "type": "git",

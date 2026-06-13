@@ -1,4 +1,4 @@
-// @pya-platform/shared — common Valibot schemas, id helpers, domain
+// @undeadliner/pya-shared — common Valibot schemas, id helpers, domain
 // errors, type primitives. Consumed by every Pya project (PyaEats, PyaServ,
 // …) and by the rest of the platform packages.
 

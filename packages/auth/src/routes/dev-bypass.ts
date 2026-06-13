@@ -1,5 +1,5 @@
-import { uuidV7 } from '@pya-platform/shared'
-import { ForbiddenError } from '@pya-platform/shared'
+import { uuidV7 } from '@undeadliner/pya-shared'
+import { ForbiddenError } from '@undeadliner/pya-shared'
 import { Hono } from 'hono'
 import { setCookie } from 'hono/cookie'
 import { newSessionId, writeSession } from '../store/session-store.ts'
