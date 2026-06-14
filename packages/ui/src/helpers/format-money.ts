@@ -1,5 +1,5 @@
 /** Pure UI helper for Guaraní formatting. Lit components import this rather
- *  than reaching into @undeadliner/pya-shared for tree-shaking on islands.
+ *  than reaching into @pya-company/shared for tree-shaking on islands.
  *  Locale read from <html lang> — Lit islands don't have framework context. */
 const isEnLocale = (): boolean =>
   typeof document !== 'undefined' && document.documentElement.lang.startsWith('en')

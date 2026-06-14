@@ -1,4 +1,4 @@
-// The shape every Pya host worker must supply to `@undeadliner/pya-auth` via `Bindings`.
+// The shape every Pya host worker must supply to `@pya-company/auth` via `Bindings`.
 // Hosts can extend this with their own bindings — Hono merges via intersection.
 // Keep this interface narrow: only what auth itself touches.
 

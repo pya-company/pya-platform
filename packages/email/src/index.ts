@@ -1,4 +1,4 @@
-// @undeadliner/pya-email — Resend wrapper.
+// @pya-company/email — Resend wrapper.
 //
 // Single entry: `sendEmail()`. Never throws — notification failure
 // must not block whatever caller transition already succeeded.

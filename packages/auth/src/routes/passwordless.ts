@@ -7,8 +7,8 @@ import {
   type Role,
   RoleSchema,
   StartBodySchema,
-} from '@undeadliner/pya-shared'
-import { ForbiddenError, UnauthorizedError, ValidationError } from '@undeadliner/pya-shared'
+} from '@pya-company/shared'
+import { ForbiddenError, UnauthorizedError, ValidationError } from '@pya-company/shared'
 import { Hono } from 'hono'
 import { deleteCookie, setCookie } from 'hono/cookie'
 import * as v from 'valibot'

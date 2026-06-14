@@ -1,5 +1,5 @@
-import { type ProviderClaims, ProviderClaimsSchema } from '@undeadliner/pya-shared'
-import { InvalidTokenError, UpstreamError } from '@undeadliner/pya-shared'
+import { type ProviderClaims, ProviderClaimsSchema } from '@pya-company/shared'
+import { InvalidTokenError, UpstreamError } from '@pya-company/shared'
 import { type JSONWebKeySet, createLocalJWKSet, jwtVerify } from 'jose'
 import * as v from 'valibot'
 

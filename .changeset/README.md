@@ -1,3 +1,3 @@
 # Changesets
 
-`@undeadliner/pya-*` packages release as a fixed-version group. Run `bun run changeset` whenever you change a package; CI publishes on merge to `main`.
+`@pya-company/*` packages release as a fixed-version group. Run `bun run changeset` whenever you change a package; CI publishes on merge to `main`.

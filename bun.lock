@@ -11,15 +11,15 @@
       },
     },
     "packages/audit": {
-      "name": "@undeadliner/pya-audit",
+      "name": "@pya-company/audit",
       "version": "0.1.0",
     },
     "packages/auth": {
-      "name": "@undeadliner/pya-auth",
+      "name": "@pya-company/auth",
       "version": "0.1.0",
       "dependencies": {
+        "@pya-company/shared": "workspace:*",
         "@simplewebauthn/server": "^13.3.0",
-        "@undeadliner/pya-shared": "workspace:*",
         "effect": "^3.10.0",
         "hono": "^4.6.0",
         "jose": "^5.9.0",
@@ -30,17 +30,17 @@
       },
     },
     "packages/cf": {
-      "name": "@undeadliner/pya-cf",
+      "name": "@pya-company/cf",
       "version": "0.1.0",
       "peerDependencies": {
         "@cloudflare/workers-types": "^4.20240909.0",
       },
     },
     "packages/cms": {
-      "name": "@undeadliner/pya-cms",
+      "name": "@pya-company/cms",
       "version": "0.1.0",
       "dependencies": {
-        "@undeadliner/pya-shared": "workspace:*",
+        "@pya-company/shared": "workspace:*",
         "hono": "^4.6.0",
         "valibot": "^1.0.0",
       },
@@ -49,10 +49,10 @@
       },
     },
     "packages/comments": {
-      "name": "@undeadliner/pya-comments",
+      "name": "@pya-company/comments",
       "version": "0.1.0",
       "dependencies": {
-        "@undeadliner/pya-shared": "workspace:*",
+        "@pya-company/shared": "workspace:*",
         "valibot": "^1.0.0",
       },
       "peerDependencies": {
@@ -60,21 +60,21 @@
       },
     },
     "packages/email": {
-      "name": "@undeadliner/pya-email",
+      "name": "@pya-company/email",
       "version": "0.1.0",
       "peerDependencies": {
         "@cloudflare/workers-types": "^4.20240909.0",
       },
     },
     "packages/i18n": {
-      "name": "@undeadliner/pya-i18n",
+      "name": "@pya-company/i18n",
       "version": "0.1.0",
     },
     "packages/reviews": {
-      "name": "@undeadliner/pya-reviews",
+      "name": "@pya-company/reviews",
       "version": "0.1.0",
       "dependencies": {
-        "@undeadliner/pya-shared": "workspace:*",
+        "@pya-company/shared": "workspace:*",
         "valibot": "^1.0.0",
       },
       "peerDependencies": {
@@ -82,7 +82,7 @@
       },
     },
     "packages/shared": {
-      "name": "@undeadliner/pya-shared",
+      "name": "@pya-company/shared",
       "version": "0.1.0",
       "dependencies": {
         "effect": "^3.10.0",
@@ -90,14 +90,14 @@
       },
     },
     "packages/tokens": {
-      "name": "@undeadliner/pya-tokens",
+      "name": "@pya-company/tokens",
       "version": "0.1.0",
     },
     "packages/ui": {
-      "name": "@undeadliner/pya-ui",
+      "name": "@pya-company/ui",
       "version": "0.1.0",
       "dependencies": {
-        "@undeadliner/pya-tokens": "workspace:*",
+        "@pya-company/tokens": "workspace:*",
         "lit": "^3.2.1",
       },
     },
@@ -205,6 +205,28 @@
 
     "@peculiar/x509": ["@peculiar/x509@1.14.3", "", { "dependencies": { "@peculiar/asn1-cms": "^2.6.0", "@peculiar/asn1-csr": "^2.6.0", "@peculiar/asn1-ecc": "^2.6.0", "@peculiar/asn1-pkcs9": "^2.6.0", "@peculiar/asn1-rsa": "^2.6.0", "@peculiar/asn1-schema": "^2.6.0", "@peculiar/asn1-x509": "^2.6.0", "pvtsutils": "^1.3.6", "reflect-metadata": "^0.2.2", "tslib": "^2.8.1", "tsyringe": "^4.10.0" } }, "sha512-C2Xj8FZ0uHWeCXXqX5B4/gVFQmtSkiuOolzAgutjTfseNOHT3pUjljDZsTSxXFGgio54bCzVFqmEOUrIVk8RDA=="],
 
+    "@pya-company/audit": ["@pya-company/audit@workspace:packages/audit"],
+
+    "@pya-company/auth": ["@pya-company/auth@workspace:packages/auth"],
+
+    "@pya-company/cf": ["@pya-company/cf@workspace:packages/cf"],
+
+    "@pya-company/cms": ["@pya-company/cms@workspace:packages/cms"],
+
+    "@pya-company/comments": ["@pya-company/comments@workspace:packages/comments"],
+
+    "@pya-company/email": ["@pya-company/email@workspace:packages/email"],
+
+    "@pya-company/i18n": ["@pya-company/i18n@workspace:packages/i18n"],
+
+    "@pya-company/reviews": ["@pya-company/reviews@workspace:packages/reviews"],
+
+    "@pya-company/shared": ["@pya-company/shared@workspace:packages/shared"],
+
+    "@pya-company/tokens": ["@pya-company/tokens@workspace:packages/tokens"],
+
+    "@pya-company/ui": ["@pya-company/ui@workspace:packages/ui"],
+
     "@simplewebauthn/server": ["@simplewebauthn/server@13.3.1", "", { "dependencies": { "@hexagon/base64": "^1.1.27", "@levischuck/tiny-cbor": "^0.2.2", "@peculiar/asn1-android": "^2.6.0", "@peculiar/asn1-ecc": "^2.6.1", "@peculiar/asn1-rsa": "^2.6.1", "@peculiar/asn1-schema": "^2.6.0", "@peculiar/asn1-x509": "^2.6.1", "@peculiar/x509": "^1.14.3" } }, "sha512-GV/oM/qeycWn8p42JZIMJBsXWQcNFg+nJFzeQTnMA4gN8mXg0+HZFWJerHg8ZN/zlveMS3iV1wzuFpOVWS/46w=="],
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
@@ -212,28 +234,6 @@
     "@types/node": ["@types/node@12.20.55", "", {}, "sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ=="],
 
     "@types/trusted-types": ["@types/trusted-types@2.0.7", "", {}, "sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw=="],
-
-    "@undeadliner/pya-audit": ["@undeadliner/pya-audit@workspace:packages/audit"],
-
-    "@undeadliner/pya-auth": ["@undeadliner/pya-auth@workspace:packages/auth"],
-
-    "@undeadliner/pya-cf": ["@undeadliner/pya-cf@workspace:packages/cf"],
-
-    "@undeadliner/pya-cms": ["@undeadliner/pya-cms@workspace:packages/cms"],
-
-    "@undeadliner/pya-comments": ["@undeadliner/pya-comments@workspace:packages/comments"],
-
-    "@undeadliner/pya-email": ["@undeadliner/pya-email@workspace:packages/email"],
-
-    "@undeadliner/pya-i18n": ["@undeadliner/pya-i18n@workspace:packages/i18n"],
-
-    "@undeadliner/pya-reviews": ["@undeadliner/pya-reviews@workspace:packages/reviews"],
-
-    "@undeadliner/pya-shared": ["@undeadliner/pya-shared@workspace:packages/shared"],
-
-    "@undeadliner/pya-tokens": ["@undeadliner/pya-tokens@workspace:packages/tokens"],
-
-    "@undeadliner/pya-ui": ["@undeadliner/pya-ui@workspace:packages/ui"],
 
     "ansi-colors": ["ansi-colors@4.1.3", "", {}, "sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw=="],
 

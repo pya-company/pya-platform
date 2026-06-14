@@ -1,5 +1,5 @@
-import type { ProviderClaims } from '@undeadliner/pya-shared'
-import { ProviderNotEnabledError } from '@undeadliner/pya-shared'
+import type { ProviderClaims } from '@pya-company/shared'
+import { ProviderNotEnabledError } from '@pya-company/shared'
 
 export const exchangeAndVerifyFacebook = async (
   _env: Env,

@@ -1,5 +1,5 @@
-import { type OAuthProvider, OAuthProviderSchema, type OAuthState } from '@undeadliner/pya-shared'
-import { ValidationError } from '@undeadliner/pya-shared'
+import { type OAuthProvider, OAuthProviderSchema, type OAuthState } from '@pya-company/shared'
+import { ValidationError } from '@pya-company/shared'
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import * as v from 'valibot'

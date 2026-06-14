@@ -1,4 +1,4 @@
-// @undeadliner/pya-cf — Cloudflare Workers helpers.
+// @pya-company/cf — Cloudflare Workers helpers.
 //
 // What lands here in Phase 6:
 //   - D1 migrations runner (timestamp-ordered, schema_migrations bookkeeping)

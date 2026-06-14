@@ -8,9 +8,9 @@ Initial commit of the existing monorepo to `undeadliner/pyaeats-app`. Secret aud
 
 ## Phase 2 — bootstrap pya-platform (current)
 
-This repo. Skeleton with TypeScript / Biome / Bun workspaces / CI / Terraform layout. `@undeadliner/pya-shared`, `@undeadliner/pya-i18n`, `@undeadliner/pya-ui` exist as starter packages with a re-export shim, but no extracted code yet.
+This repo. Skeleton with TypeScript / Biome / Bun workspaces / CI / Terraform layout. `@pya-company/shared`, `@pya-company/i18n`, `@pya-company/ui` exist as starter packages with a re-export shim, but no extracted code yet.
 
-## Phase 3 — `@undeadliner/pya-auth` ✅
+## Phase 3 — `@pya-company/auth` ✅
 
 All 14 source files + 3 migrations moved into `packages/auth/`:
 - `routes/passwordless.ts` — OTP + magic link + passkey enrollment
@@ -26,24 +26,24 @@ Env contract in `env.ts` (`PyaAuthBindings`) — declared as a global `Env` augm
 ## Phase 4 — Content packages ✅ (partial)
 
 Fully written:
-- `@undeadliner/pya-email` — `sendEmail()` Resend wrapper, never-throws, audit-logs on failure
-- `@undeadliner/pya-audit` — `audit()` structured stdout writer for the `audit` stream
+- `@pya-company/email` — `sendEmail()` Resend wrapper, never-throws, audit-logs on failure
+- `@pya-company/audit` — `audit()` structured stdout writer for the `audit` stream
 
 Scaffolds (package.json + tsconfig + TODO-stub `index.ts`):
-- `@undeadliner/pya-cf` — D1 migrations runner, KV typed wrappers, R2+KV media fallback (3 plumbing modules in pyaeats-app's `infra/`)
-- `@undeadliner/pya-reviews` — repo extraction trivial (single file, generic over `targetId`)
-- `@undeadliner/pya-comments` — same
-- `@undeadliner/pya-cms` — articles repo + routes
+- `@pya-company/cf` — D1 migrations runner, KV typed wrappers, R2+KV media fallback (3 plumbing modules in pyaeats-app's `infra/`)
+- `@pya-company/reviews` — repo extraction trivial (single file, generic over `targetId`)
+- `@pya-company/comments` — same
+- `@pya-company/cms` — articles repo + routes
 
 The scaffolded packages all type-check empty. Phase 6 lifts the real code in one pass alongside the pyaeats-app refactor so we don't double-maintain.
 
-## Phase 5 — `@undeadliner/pya-ui` shell (placeholder)
+## Phase 5 — `@pya-company/ui` shell (placeholder)
 
-Tokens CSS + `<Topbar>` + login pages + theme toggle still live in pyaeats-app. The `@undeadliner/pya-ui` package has a starter `tokens.css` to anchor the eventual move.
+Tokens CSS + `<Topbar>` + login pages + theme toggle still live in pyaeats-app. The `@pya-company/ui` package has a starter `tokens.css` to anchor the eventual move.
 
 ## Phase 6 — Refactor pyaeats-app onto the platform
 
-`apps/api` keeps only food-domain features (orders, stores, menu items, geo, hours). `apps/site` and `apps/admin` rewire imports to `@undeadliner/pya-*`. **One transitional release** where old code and new imports coexist; only then delete the now-duplicated code in `pyaeats-app`. Phase 6 also lifts the real reviews/comments/cms/cf code into the scaffolded packages — doing it now would mean fixing the same imports in two places when the refactor lands.
+`apps/api` keeps only food-domain features (orders, stores, menu items, geo, hours). `apps/site` and `apps/admin` rewire imports to `@pya-company/*`. **One transitional release** where old code and new imports coexist; only then delete the now-duplicated code in `pyaeats-app`. Phase 6 also lifts the real reviews/comments/cms/cf code into the scaffolded packages — doing it now would mean fixing the same imports in two places when the refactor lands.
 
 ## Phase 7 — PyaServ
 

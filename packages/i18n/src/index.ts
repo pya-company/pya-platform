@@ -1,4 +1,4 @@
-// @undeadliner/pya-i18n — extraction target. Phase 5 brings the full getT helper from
+// @pya-company/i18n — extraction target. Phase 5 brings the full getT helper from
 // pyaeats-app/apps/site/src/i18n/dict.ts. For now we expose only the public
 // Locale type so downstream packages can compile against the future shape.
 

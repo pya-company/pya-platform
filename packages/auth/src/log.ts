@@ -1,4 +1,4 @@
-import type { IdentityProvider } from '@undeadliner/pya-shared'
+import type { IdentityProvider } from '@pya-company/shared'
 
 export type AuthEvent =
   | 'auth.login.oauth'
