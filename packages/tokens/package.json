@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/undeadliner/pya-platform.git"
+    "url": "https://github.com/pya-company/pya-platform.git"
   },
   "type": "module",
   "description": "Design tokens for Pya projects — CSS custom properties for color, motion, spacing, typography. Palettes + themes ship as separate CSS files.",
