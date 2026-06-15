@@ -29,6 +29,8 @@ export interface PyaAuthBindings {
   readonly RESEND_API_KEY?: string
   /** Email "from" domain — must be verified in Resend */
   readonly EMAIL_DOMAIN?: string
+  /** Brand name in outbound mail FROM display name + subject. Defaults to 'PyaEats'. */
+  readonly EMAIL_BRAND?: string
 
   /** WebAuthn relying-party identifier (e.g. `pyaeats.com`) */
   readonly WEBAUTHN_RP_ID?: string

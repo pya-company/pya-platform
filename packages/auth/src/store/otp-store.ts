@@ -81,11 +81,11 @@ export const verifyOtp = async (
   return { status: 'ok', record: raw }
 }
 
-const renderHtml = (code: string, magicLink: string): string => `<!DOCTYPE html>
+const renderHtml = (brand: string, code: string, magicLink: string): string => `<!DOCTYPE html>
 <html><body style="margin:0;padding:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f6f6f6">
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:600px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden">
   <tr><td style="padding:32px 32px 8px;color:#111">
-    <h1 style="margin:0 0 8px;font-size:22px">PyaEats</h1>
+    <h1 style="margin:0 0 8px;font-size:22px">${brand}</h1>
     <p style="margin:0;color:#444;font-size:15px">Tu código de acceso (válido 10 minutos):</p>
   </td></tr>
   <tr><td style="padding:16px 32px">
@@ -100,18 +100,19 @@ const renderHtml = (code: string, magicLink: string): string => `<!DOCTYPE html>
 </table>
 </body></html>`
 
-const renderText = (code: string, magicLink: string): string =>
-  `PyaEats — tu código de acceso (válido 10 min)\n\nCódigo: ${code}\n\nO accedé directamente: ${magicLink}\n\nSi no fuiste vos, ignorá este email.`
+const renderText = (brand: string, code: string, magicLink: string): string =>
+  `${brand} — tu código de acceso (válido 10 min)\n\nCódigo: ${code}\n\nO accedé directamente: ${magicLink}\n\nSi no fuiste vos, ignorá este email.`
 
 export const sendOtpEmail = async (env: Env, email: string, code: string): Promise<void> => {
+  const brand = env.EMAIL_BRAND ?? 'PyaEats'
   // Prefer the verified domain whenever EMAIL_DOMAIN is set (regardless of
   // ENVIRONMENT) — that's the marker that domain verify in Resend completed.
   // Fall back to Resend's sandbox sender (onboarding@resend.dev) only when no
   // domain is verified yet (sends restricted to the account-verified address).
   const sender =
     env.EMAIL_DOMAIN !== undefined && env.EMAIL_DOMAIN !== ''
-      ? `PyaEats <noreply@${env.EMAIL_DOMAIN}>`
-      : 'PyaEats Dev <onboarding@resend.dev>'
+      ? `${brand} <noreply@${env.EMAIL_DOMAIN}>`
+      : `${brand} Dev <onboarding@resend.dev>`
 
   // Site origin without trailing slash. Fragment-encoded so mail scanners that
   // pre-fetch the URL don't consume the one-shot code (fragments aren't sent).
@@ -127,9 +128,9 @@ export const sendOtpEmail = async (env: Env, email: string, code: string): Promi
     body: JSON.stringify({
       from: sender,
       to: email,
-      subject: `${code} — tu código de PyaEats`,
-      html: renderHtml(code, magicLink),
-      text: renderText(code, magicLink),
+      subject: `${code} — tu código de ${brand}`,
+      html: renderHtml(brand, code, magicLink),
+      text: renderText(brand, code, magicLink),
     }),
   })
   if (!res.ok) {
