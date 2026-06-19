@@ -136,7 +136,7 @@ app.post('/start', async (c) => {
 
   const code = generateCode()
   await storeOtp(c.env.OAUTH_STATE, c.env, email, code, redirectAfter)
-  await sendOtpEmail(c.env, email, code)
+  await sendOtpEmail(c.env, email, code, body.locale ?? 'es')
   return c.json({ method: 'otp' as const, sentTo: maskEmail(email) })
 })
 

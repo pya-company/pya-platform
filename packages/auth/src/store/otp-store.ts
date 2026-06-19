@@ -81,29 +81,72 @@ export const verifyOtp = async (
   return { status: 'ok', record: raw }
 }
 
-const renderHtml = (brand: string, code: string, magicLink: string): string => `<!DOCTYPE html>
-<html><body style="margin:0;padding:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f6f6f6">
+type EmailLocale = 'es' | 'en'
+
+interface Copy {
+  readonly subjectSuffix: string
+  readonly headlineText: string
+  readonly cta: string
+  readonly footer: string
+  readonly textHeadline: string
+  readonly textBody: (code: string, magicLink: string) => string
+  readonly textFooter: string
+}
+
+const COPY: Readonly<Record<EmailLocale, Copy>> = {
+  es: {
+    subjectSuffix: 'tu código de',
+    headlineText: 'Tu código de acceso (válido 10 minutos):',
+    cta: 'Acceder ahora →',
+    footer: 'Pegá el código en el sitio o tocá el botón. Si no fuiste vos, podés ignorar este email — nadie puede acceder sin él.',
+    textHeadline: 'tu código de acceso (válido 10 min)',
+    textBody: (code, magicLink) => `Código: ${code}\n\nO accedé directamente: ${magicLink}`,
+    textFooter: 'Si no fuiste vos, ignorá este email.',
+  },
+  en: {
+    subjectSuffix: 'your sign-in code for',
+    headlineText: 'Your sign-in code (valid for 10 minutes):',
+    cta: 'Sign in now →',
+    footer: 'Paste the code into the site or tap the button. If you didn\'t request this, you can ignore the email — nobody can sign in without it.',
+    textHeadline: 'your sign-in code (valid for 10 min)',
+    textBody: (code, magicLink) => `Code: ${code}\n\nOr open directly: ${magicLink}`,
+    textFooter: 'If you didn\'t request this, ignore this email.',
+  },
+}
+
+const renderHtml = (brand: string, code: string, magicLink: string, loc: EmailLocale): string => {
+  const c = COPY[loc]
+  return `<!DOCTYPE html>
+<html lang="${loc}"><body style="margin:0;padding:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f6f6f6">
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:600px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden">
   <tr><td style="padding:32px 32px 8px;color:#111">
     <h1 style="margin:0 0 8px;font-size:22px">${brand}</h1>
-    <p style="margin:0;color:#444;font-size:15px">Tu código de acceso (válido 10 minutos):</p>
+    <p style="margin:0;color:#444;font-size:15px">${c.headlineText}</p>
   </td></tr>
   <tr><td style="padding:16px 32px">
     <div style="font-size:38px;font-weight:800;letter-spacing:8px;color:#111;background:#f8f8f8;border:1px solid #eee;border-radius:8px;padding:18px;text-align:center;font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace">${code}</div>
   </td></tr>
   <tr><td style="padding:16px 32px 4px;text-align:center">
-    <a href="${magicLink}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:8px">Acceder ahora →</a>
+    <a href="${magicLink}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:8px">${c.cta}</a>
   </td></tr>
   <tr><td style="padding:8px 32px 24px;color:#666;font-size:13px;line-height:1.5;text-align:center">
-    Pegá el código en el sitio o tocá el botón. Si no fuiste vos, podés ignorar este email — nadie puede acceder sin él.
+    ${c.footer}
   </td></tr>
 </table>
 </body></html>`
+}
 
-const renderText = (brand: string, code: string, magicLink: string): string =>
-  `${brand} — tu código de acceso (válido 10 min)\n\nCódigo: ${code}\n\nO accedé directamente: ${magicLink}\n\nSi no fuiste vos, ignorá este email.`
+const renderText = (brand: string, code: string, magicLink: string, loc: EmailLocale): string => {
+  const c = COPY[loc]
+  return `${brand} — ${c.textHeadline}\n\n${c.textBody(code, magicLink)}\n\n${c.textFooter}`
+}
 
-export const sendOtpEmail = async (env: Env, email: string, code: string): Promise<void> => {
+export const sendOtpEmail = async (
+  env: Env,
+  email: string,
+  code: string,
+  locale: EmailLocale = 'es',
+): Promise<void> => {
   const brand = env.EMAIL_BRAND ?? 'PyaEats'
   // Prefer the verified domain whenever EMAIL_DOMAIN is set (regardless of
   // ENVIRONMENT) — that's the marker that domain verify in Resend completed.
@@ -128,9 +171,9 @@ export const sendOtpEmail = async (env: Env, email: string, code: string): Promi
     body: JSON.stringify({
       from: sender,
       to: email,
-      subject: `${code} — tu código de ${brand}`,
-      html: renderHtml(brand, code, magicLink),
-      text: renderText(brand, code, magicLink),
+      subject: `${code} — ${COPY[locale].subjectSuffix} ${brand}`,
+      html: renderHtml(brand, code, magicLink, locale),
+      text: renderText(brand, code, magicLink, locale),
     }),
   })
   if (!res.ok) {

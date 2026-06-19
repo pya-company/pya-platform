@@ -5,6 +5,10 @@ export const StartBodySchema = v.object({
   email: EmailSchema,
   force: v.optional(v.picklist(['otp'])),
   redirect: v.optional(v.string()),
+  // Locale hint for the OTP email template. Frontend sends the active UI
+  // locale; backend defaults to 'es' if absent so existing clients don't
+  // get an unexpected English email overnight.
+  locale: v.optional(v.picklist(['es', 'en'])),
 })
 export type StartBody = v.InferOutput<typeof StartBodySchema>
 
