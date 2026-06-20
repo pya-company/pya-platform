@@ -49,6 +49,19 @@ export const genAuthOptions = async (
     timeout: 60_000,
   })
 
+/** Discoverable-credential flow: empty allowCredentials so the platform
+ *  authenticator picks from ALL of its resident keys. Used for Conditional UI
+ *  (autofill chip) and for "sign in" with no email pre-entered. */
+export const genDiscoverableAuthOptions = async (
+  env: Env,
+): Promise<PublicKeyCredentialRequestOptionsJSON> =>
+  generateAuthenticationOptions({
+    rpID: rpID(env),
+    allowCredentials: [],
+    userVerification: 'preferred',
+    timeout: 60_000,
+  })
+
 export const genRegOptions = async (
   env: Env,
   userId: string,

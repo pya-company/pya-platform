@@ -31,6 +31,7 @@ import {
 } from '../store/passkey-store.ts'
 import {
   genAuthOptions,
+  genDiscoverableAuthOptions,
   genRegOptions,
   uint8ToBase64url,
   verifyAuth,
@@ -247,6 +248,72 @@ app.post('/passkey/auth/verify', async (c) => {
     csrf: session.csrf,
     redirect: state.redirectAfter,
   })
+})
+
+// ───── /passkey/discover/options ─────
+// Conditional UI + email-less sign-in. Returns assertion options with empty
+// allowCredentials so the platform authenticator picks from ALL discoverable
+// keys it holds for this RP. Anonymous: anyone with a passkey for this RP can
+// initiate the flow; the verify endpoint pins identity from userHandle.
+app.post('/passkey/discover/options', async (c) => {
+  const options = await genDiscoverableAuthOptions(c.env)
+  const challengeId = crypto.randomUUID()
+  await c.env.OAUTH_STATE.put(
+    `webauthn:disc:${challengeId}`,
+    JSON.stringify({ challenge: options.challenge, ts: Date.now() }),
+    { expirationTtl: 300 },
+  )
+  return c.json({ challengeId, options })
+})
+
+// ───── /passkey/discover/verify ─────
+// Body: { challengeId, assertion }. The assertion's response.userHandle is
+// the userId (we set it that way at registration via writeSession path).
+// Anonymous: identity is derived purely from the WebAuthn signature.
+app.post('/passkey/discover/verify', async (c) => {
+  const body = await c.req.json().catch(() => ({})) as { challengeId?: unknown; assertion?: unknown }
+  if (typeof body.challengeId !== 'string' || body.assertion === null || typeof body.assertion !== 'object') {
+    throw new ValidationError({ issues: [{ path: '', message: 'invalid body' }] })
+  }
+  const stateKey = `webauthn:disc:${body.challengeId}`
+  const state = await c.env.OAUTH_STATE.get<{ challenge: string }>(stateKey, { type: 'json' })
+  if (state === null) throw new UnauthorizedError({ reason: 'challenge_expired' })
+  await c.env.OAUTH_STATE.delete(stateKey)
+
+  const assertion = body.assertion as unknown as AuthenticationResponseJSON
+  const passkey = await findPasskeyByCredentialId(c.env.DB, assertion.id)
+  if (passkey === undefined) throw new UnauthorizedError({ reason: 'unknown_credential' })
+
+  const verified = await verifyAuth(c.env, assertion, state.challenge, passkey)
+  if (!verified.verified) throw new UnauthorizedError({ reason: 'assertion_invalid' })
+
+  await c.env.DB.prepare(
+    'UPDATE passkeys SET sign_count = ?, last_used_at = ? WHERE credential_id = ?',
+  )
+    .bind(
+      verified.authenticationInfo.newCounter,
+      Math.floor(Date.now() / 1000),
+      passkey.credentialId,
+    )
+    .run()
+
+  const ip = c.req.header('CF-Connecting-IP') ?? ''
+  logAuth({
+    event: 'auth.login.passkey',
+    ts: Math.floor(Date.now() / 1000),
+    userId: passkey.userId,
+    provider: 'email',
+    ipHash: await sha256Hex(ip + (c.env.SESSION_PEPPER ?? '')),
+    outcome: 'reused',
+  })
+
+  const { roles, storeIds } = await loadSessionRoles(c.env.DB, passkey.userId)
+  const session = await issueSession(c, setCookie, false, {
+    userId: passkey.userId,
+    roles,
+    storeIds,
+  })
+  return c.json({ ok: true, sid: session.sid, csrf: session.csrf })
 })
 
 // ───── /passkey/register/options ─────  (requires session)
